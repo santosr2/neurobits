@@ -18,7 +18,7 @@
       
       <guid>/2019/send-files-and-folders-with-netcat/</guid>
       <description>server:
-$ mkdir ${destination} &amp;amp;&amp;amp; cd ${destination} # your custom path dir $ nc -l ${port} | tar xf -  client:
+$ mkdir ${destination} &amp;amp;&amp;amp; cd ${destination} # your custom folder path $ nc -l ${port} | tar xf -  client:
 $ cd ${dir} # your dir to send $ tar cf - . | nc ${server_ip} ${port}  </description>
     </item>
     

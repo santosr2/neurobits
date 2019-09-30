@@ -46,7 +46,7 @@
     "articleSection" : "posts",
     "name" : "Send Files and Folders With Netcat",
     "headline" : "Send Files and Folders With Netcat",
-    "description" : "server:\n$ mkdir ${destination} \x26amp;\x26amp; cd ${destination} # your custom path dir $ nc -l ${port} | tar xf -  client:\n$ cd ${dir} # your dir to send $ tar cf - . | nc ${server_ip} ${port}  ",
+    "description" : "server:\n$ mkdir ${destination} \x26amp;\x26amp; cd ${destination} # your custom folder path $ nc -l ${port} | tar xf -  client:\n$ cd ${dir} # your dir to send $ tar cf - . | nc ${server_ip} ${port}  ",
     "inLanguage" : "en-us",
     "author" : "Rubens Santos - z1ron",
     "creator" : "Rubens Santos - z1ron",
@@ -148,7 +148,7 @@
 
           <p>server:</p>
 
-<pre><code class="language-shell">$ mkdir ${destination} &amp;&amp; cd ${destination} # your custom path dir
+<pre><code class="language-shell">$ mkdir ${destination} &amp;&amp; cd ${destination} # your custom folder path
 $ nc -l ${port} | tar xf -
 </code></pre>
 
