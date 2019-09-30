@@ -5,7 +5,212 @@
     <description>Recent content in Neurobits on Neurobits</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Fri, 30 Aug 2019 19:50:58 -0300</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Send Files and Folders With Netcat</title>
+      <link>/2019/send-files-and-folders-with-netcat/</link>
+      <pubDate>Fri, 30 Aug 2019 19:50:58 -0300</pubDate>
+      
+      <guid>/2019/send-files-and-folders-with-netcat/</guid>
+      <description>&lt;p&gt;server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ mkdir ${destination} &amp;amp;&amp;amp; cd ${destination} # your custom path dir
+$ nc -l ${port} | tar xf -
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;client:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ cd ${dir} # your dir to send
+$ tar cf - . | nc ${server_ip} ${port}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Wed, 28 Aug 2019 22:07:30 -0300</pubDate>
+      
+      <guid>/about/</guid>
+      <description>
+
+&lt;h2 id=&#34;me&#34;&gt;ME&lt;/h2&gt;
+
+&lt;p&gt;0 or 1 is my culture, one of the &lt;em&gt;Oeste Geek Day&lt;/em&gt; idealists - event about IT and geek/nerd culture lovers - IT infrastructure, management, development, &lt;strong&gt;data engineering&lt;/strong&gt;, big data, artificial intelligence and analytics are all part of my daily life, &lt;strong&gt;geek&lt;/strong&gt;, &lt;strong&gt;self-learning&lt;/strong&gt; and cyber security enthusiast, writer in my spare time and a black screen lover. &lt;strong&gt;&lt;em&gt;In short, just a guy fascinated by computers&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ocr Is Cool (Google CTF 2018)</title>
+      <link>/2018/ocr-is-cool-google-ctf-2018/</link>
+      <pubDate>Tue, 03 Jul 2018 19:40:56 -0300</pubDate>
+      
+      <guid>/2018/ocr-is-cool-google-ctf-2018/</guid>
+      <description>
+
+&lt;h1 style=&#34;text-align: center&#34;&gt; OCR is cool (google CTF 2018)&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+ Olá readers, vamos ao primeiro write-up { \o/ }. mesmo tendo vários write-ups rolando na web sobre esse ctf, resolvi publicar esse porque achei válido escrever a forma como resolvi essa challange, já que usei uma forma diferente dos write-ups que fui lendo depois, que a propósito recomendo a leitura deles, pois são um poço de conhecimento, deixarei todos links ao final, uma ressalva interessante, é saber ao menos do que se trata OCR (Optical Character Recognition - Reconhecimento optico de caracteres).&lt;/p&gt;
+
+&lt;h2 id=&#34;a-call&#34;&gt;=[ A call ]=&lt;/h2&gt;
+
+&lt;p&gt;Bom, em resumo, começa com uma citação de Júlio &lt;em&gt;Cesar&lt;/em&gt; [ lembre desse
+nome ], e posteriormente fala que conectamos a um servidor e o que tinha era
+apenas um screenshot, porem o texto contido na imagem está confuso. Call completa:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Caesar once said, don&amp;rsquo;t stab me but taking a screenshot of an image sure feels
+lik e being stabbed. You connected to a VNC server on the Foobanizer 9000, it
+was view only. This screenshot is all that was present but it&amp;rsquo;s gibberish. Can
+you recover the original text&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;a-análise&#34;&gt;=[ A análise ]=&lt;/h2&gt;
+
+&lt;p&gt;Baixei o arquivo disponivel, que nao mostrava seu formato, então comecei
+a analisar o arquivo com o comando &lt;strong&gt;&lt;code&gt;file&lt;/code&gt;&lt;/strong&gt;, que em resumo, lê o cabeçalho do
+arquivo [ todo arquivo, possui em seus primeiros bytes, uma assinatura
+do seu formato ] para identificar sua assinatura. Claro, o file não faz só isso,
+analisa outros bytes, afim de se obter informações sobre o arquivo.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt; $ file 7ad5a7d71a7ac5f5056bb95dd326603e77a38f25a76a1fb7f7e6461e7d27b6a3
+7ad5a7d71a7ac5f5056bb95dd326603e77a38f25a76a1fb7f7e6461e7d27b6a3: Zip archive data, at least v2.0 to extract
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Como prova do resultado do file [ que as vezes pode não identificar o tipo do arquivo devido seu cabeçalho ter sido alterado ], vou usar o &lt;strong&gt;&lt;code&gt;xxd&lt;/code&gt;&lt;/strong&gt; para fazer um dump do hexa do arquivo e fazer um pipe com &lt;strong&gt;&lt;code&gt;head&lt;/code&gt;&lt;/strong&gt; para exibir apenas as 4 primeiras linhas, ja que serão o suficiente para exibir o cabeçalho.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt; $ xxd 7ad5a7d71a7ac5f5056bb95dd326603e77a38f25a76a1fb7f7e6461e7d27b6a3 | head -n4
+0000000: 504b 0304 1400 0000 0000 0000 0000 6c1b  PK............l.
+0000010: 02c8 c128 0200 c128 0200 0f00 0000 4f43  ...(...(......OC
+0000020: 525f 6973 5f63 6f6f 6c2e 706e 6789 504e  R_is_cool.png.PN
+0000030: 470d 0a1a 0a00 0000 0d49 4844 5200 0007  G........IHDR...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;[ &lt;em&gt;Awesome&lt;/em&gt; ], se olharmos os primeiros bytes do arquivo, veremos a assinatura do compressor zip, sendo um inteiro curto: 0x4b50. Seu identificador exclusivo é 0x04034b50 [ deve ter percebido que a ordem está inversa, isso ocorre em processadores baseados em x86 que carregam bits na memória de forma inversa - 504b - ], que em ascii é PK, inicias de Phil Katz, criador desse formato, como falado anteriormente, o file analisa esses bytes, afim de pegar informações e não só os primeiros bytes, note o cabeçalho na estrutura filename a mensagem não sofreu compactação, isso ocorre porque a compactação de mensagens curtas é ineficiente, além disso array compactada torna-se mais pesado. Bem, para saber mais da uma olhada nos links sobre zip e sequências de bytes (&lt;em&gt;Endianness&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;Então &lt;em&gt;voilá&lt;/em&gt;, o arquivo é um zip. Com isso, basta eu renomear (opcional) o arquivo e extrair o conteudo.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt; $ mv 7ad5a7d71a7ac5f5056bb95dd326603e77a38f25a76a1fb7f7e6461e7d27b6a3 challange.zip &amp;amp;&amp;amp; unzip challange.zip
+Archive:  challange.zip
+ extracting: OCR_is_cool.png
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nice, o arquivo extraido é um png, como visto antes, nomeado &lt;strong&gt;OCR_is_coll&lt;/strong&gt; [ daí o título desse write-up :3 ], ao visualiza-lo vejo que é um screenshot de um email, com seu conteudo todo cifrado { lol }, agora sim começa a diversão { \m/ }.&lt;/p&gt;
+
+&lt;h2 id=&#34;o-processo&#34;&gt;=[ O processo ]=&lt;/h2&gt;
+
+&lt;p&gt;Comecei a analisar a imagem. Eu poderia transforma-la em texto, que é a ideia da challange, of course, [ a conversão não é perfeita, mas quanto mais nítida e maior ela for, melhor será a conversão ], e tentar decifrar todo o conteudo.&lt;/p&gt;
+
+&lt;p&gt;&amp;ndash; Para quem tiver interesse em tentar dessa forma indico o &lt;strong&gt;&lt;code&gt;tesseract&lt;/code&gt;&lt;/strong&gt;, é uma ótima ferramenta para esse propósito e aí vaí uma &lt;em&gt;tip&lt;/em&gt; para galera que for tentar a conversão, a resolução ta bem baixa, em algumas distros linux já contem uma ferramenta bem interessante para manipulação de imagens, a &lt;strong&gt;&lt;code&gt;convert&lt;/code&gt;&lt;/strong&gt;, uma das ferramentas do set &lt;em&gt;imagemagick&lt;/em&gt;, se não a tiver, basta instalar o pacote mencionado. Essa não é a unica ferramenta para esse próposito, há outras boas, basta da uma pesquisada aí { ;p }. &amp;ndash;&lt;/p&gt;
+
+&lt;p&gt;Bem, comecei a análise da cifragem do email e aqui vai a dica da call [ eu avisei ], Cesar, um ditador da roma antiga que também possui uma cifragem antiga e já decifrada, que nada mais era, um salto [ a chave ] no alfabeto.&lt;/p&gt;
+
+&lt;p&gt;ex: tendo a chave 3 [ que é a default ], entao abc seria def, pois cada letra seria somado 3.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;A B C ...
+- - -          ┐
+| | |_____     |
+| |_____  |    \  chave/saltos
+|_____  | |    /       3
+      | | |    |
+      v v v    ┘
+      A B C D E F ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Como eu sempre procuro colaborar com minha preguiça, não quis fazer a conversão,
+apesar de não dar tanto trabalho { &amp;lsquo;^.^ }, então veio o lapejo, bem, a cifra de Cesar
+apenas faz a conversão de letras, simbolos não { lol } e sabendo que o formato da flag é CTF{&amp;hellip;} [ dada pela competição ], comecei a procurar algo parecido com o formato e  &lt;em&gt;check&lt;/em&gt; { *.* }, &lt;em&gt;VMY{vtxltkvbiaxkbltlnulmbmnmbhgvbiaxk}&lt;/em&gt;, nice, tenho provavelmente a flag o que me resta é achar a chave para decifrar e aqui lá vamos nós à preguiça novamente, a quantidade de possibilidades é de acordo com o alfabeto que foi usado para cifrar, nesse caso, 26 letras, ou seja, 26 possibilidades de saltos [ &lt;em&gt;goddammit&lt;/em&gt; ], então peguei um script feito em python no github, mas no script eu teria que ficar inserindo a key e string a cada interpretada da source, [ &lt;em&gt;shit. Wait, i&amp;rsquo;m coder&lt;/em&gt;  lol ], modifiquei o script para esperar um input, que seria a string cifrada e os passos eram inseridos em cli (linha de comando), assim eu poderia usar uma outra linguagem poderosa para automatizar os inputs, a shell { *.* }, e não modificaria tanto o script do autor [ créditos ao final do write-up ], vamos aos scripts:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&#39;&#39;&#39;
+ title: caesar.py
+ run: python2 caesar.py
+ usage: python2 caesar.py &amp;lt;key&amp;gt;
+ author: jameslyons
+ modified by: z1ron
+&#39;&#39;&#39;
+import sys
+# we need 2 helper mappings, from letters to ints and the inverse
+L2I = dict(zip(&amp;quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;quot;,range(26)))
+I2L = dict(zip(range(26),&amp;quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;quot;))
+
+key = int(sys.argv[1]) # aqui modifiquei para ser passado os saltos em cli
+plaintext = raw_input() # aqui modifiquei para ser passado a string
+
+# NOTA: aqui havia um loop para cifragem, como não era necessário, omiti.
+#  Para visualizar o código completo, acesse o link desta source ao final do write-up.
+
+# decipher
+plaintext2 = &amp;quot;&amp;quot;
+for c in plaintext.upper():
+    if c.isalpha(): plaintext2 += I2L[ (L2I[c] - key)%26 ]
+    else: plaintext2 += c
+
+print str(key)+&#39;: &#39;+ plaintext2 # modifiquei para visualizar os passos e a string decifrada
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;fatallity&#34;&gt;=[ Fatallity ]=&lt;/h2&gt;
+
+&lt;p&gt;Agora praticamente só preciso repetir a chamada do script em pyhton, 26 vezes e
+passar a string. Segue:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt; $ for i in {1..27};do python2 caeser.py $i &amp;lt; &amp;lt;(echo &#39;VMY{vtxltkvbiaxkbltlnulmbmnmbhgvbiaxk}&#39;); done
+1: ULX{USWKSJUAHZWJAKSKMTKLALMLAGFUAHZWJ}
+2: TKW{TRVJRITZGYVIZJRJLSJKZKLKZFETZGYVI}
+3: SJV{SQUIQHSYFXUHYIQIKRIJYJKJYEDSYFXUH}
+4: RIU{RPTHPGRXEWTGXHPHJQHIXIJIXDCRXEWTG}
+5: QHT{QOSGOFQWDVSFWGOGIPGHWHIHWCBQWDVSF}
+6: PGS{PNRFNEPVCUREVFNFHOFGVGHGVBAPVCURE}
+7: OFR{OMQEMDOUBTQDUEMEGNEFUFGFUAZOUBTQD}
+8: NEQ{NLPDLCNTASPCTDLDFMDETEFETZYNTASPC}
+9: MDP{MKOCKBMSZROBSCKCELCDSDEDSYXMSZROB}
+10: LCO{LJNBJALRYQNARBJBDKBCRCDCRXWLRYQNA}
+11: KBN{KIMAIZKQXPMZQAIACJABQBCBQWVKQXPMZ}
+12: JAM{JHLZHYJPWOLYPZHZBIZAPABAPVUJPWOLY}
+13: IZL{IGKYGXIOVNKXOYGYAHYZOZAZOUTIOVNKX}
+14: HYK{HFJXFWHNUMJWNXFXZGXYNYZYNTSHNUMJW}
+15: GXJ{GEIWEVGMTLIVMWEWYFWXMXYXMSRGMTLIV}
+16: FWI{FDHVDUFLSKHULVDVXEVWLWXWLRQFLSKHU}
+17: EVH{ECGUCTEKRJGTKUCUWDUVKVWVKQPEKRJGT}
+18: DUG{DBFTBSDJQIFSJTBTVCTUJUVUJPODJQIFS}
+19: CTF{CAESARCIPHERISASUBSTITUTIONCIPHER} &amp;lt;-
+20: BSE{BZDRZQBHOGDQHRZRTARSHSTSHNMBHOGDQ}
+21: ARD{AYCQYPAGNFCPGQYQSZQRGRSRGMLAGNFCP}
+22: ZQC{ZXBPXOZFMEBOFPXPRYPQFQRQFLKZFMEBO}
+23: YPB{YWAOWNYELDANEOWOQXOPEPQPEKJYELDAN}
+24: XOA{XVZNVMXDKCZMDNVNPWNODOPODJIXDKCZM}
+25: WNZ{WUYMULWCJBYLCMUMOVMNCNONCIHWCJBYL}
+26: VMY{VTXLTKVBIAXKBLTLNULMBMNMBHGVBIAXK}
+27: ULX{USWKSJUAHZWJAKSKMTKLALMLAGFUAHZWJ}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;checkmate&lt;/em&gt; { \o/ } e aí está a flag, mas calma lá, a flag ainda não está no seu
+formato orginal, pois o script em python, faz a conversão de todos caracteres para
+seus respectivos em maiúsculo, facilitando assim a manipulação dos bytes da tabela
+ascii, basta apenas deixar no formato que foi encontrado a flag, no caso a string
+cifrada, resultando: &lt;strong&gt;CTF{caesarcipherissubstitutioncipher}.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusão&#34;&gt;=[ Conclusão ]=&lt;/h2&gt;
+
+&lt;p&gt;Achei bastante interessante essa call, consegui praticar meu conhecimento em
+python e utilizar o bash para otimizar a tarefa, e eu sei, que poderia ter criado
+um script para manipular todos esses passos e me mostrar só a flag, inclusive, mas não queria passar tanto tempo programando, também sei que poderia ter modificado ja no script que peguei no github, porem não queria mexer muito no código do autor e assim eu conseguiria praticar um pouco otimização de tarefas com shell { :p }. É um write-up rápido, mas achei interessante mostrar um outro ponto de vista, na próxima, tento ser menos preguiçoso { &amp;lsquo;^.^ }, é isso aí.&lt;/p&gt;
+
+&lt;h2 id=&#34;referências&#34;&gt;=[ Referências ]=&lt;/h2&gt;
+
+&lt;p&gt;OCR: &lt;a href=&#34;https://pt.wikipedia.org/wiki/Reconhecimento_%C3%B3tico_de_caracteres&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Wikipedia&lt;/a&gt; &lt;br&gt;
+ZIP: &lt;a href=&#34;https://en.wikipedia.org/wiki/Zip_(file_format)&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Wikipedia&lt;/a&gt; &amp;amp; &lt;a href=&#34;https://www.mql5.com/pt/articles/1971&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;MQL5&lt;/a&gt; &lt;br&gt;
+Endianness: &lt;a href=&#34;https://en.wikipedia.org/wiki/Endianness&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Wikipedia&lt;/a&gt; &lt;br&gt;
+Tabela ASCII: &lt;a href=&#34;https://pt.wikipedia.org/wiki/ASCII&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Wikipedia&lt;/a&gt; &lt;br&gt;
+Script: &lt;a href=&#34;https://gist.github.com/jameslyons/8701593&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;caesarCipher.py - jameslyons&lt;/a&gt; &lt;br&gt;
+Outro write-up: &lt;a href=&#34;https://0x000027.me/writeup-ocr-is-cool-google-ctf/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;0x000027&lt;/a&gt; &lt;br&gt;
+Videos dessa call: &lt;a href=&#34;https://www.youtube.com/watch?v=j9xht4K-MBk&amp;amp;feature=youtu.be&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;John Hammond&lt;/a&gt; &amp;amp; &lt;a href=&#34;https://www.youtube.com/watch?v=qDYwcIf0LZw&amp;amp;t=4026s&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;GynvaelEN&lt;/a&gt; &lt;br&gt;
+&lt;a href=&#34;https://capturetheflag.withgoogle.com/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;CTF - google2018&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
