@@ -1,0 +1,11 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Neurobits on Neurobits</title>
+    <link>z1ron.github.io/</link>
+    <description>Recent content in Neurobits on Neurobits</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="z1ron.github.io/" rel="self" type="application/rss+xml" />
+    
+  </channel>
+</rss>
