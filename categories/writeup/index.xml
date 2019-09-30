@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>writeup on Neurobits</title>
+    <link>/categories/writeup/</link>
+    <description>Recent content in writeup on Neurobits</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Jul 2018 19:40:56 -0300</lastBuildDate>
+    
+	<atom:link href="/categories/writeup/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ocr Is Cool (Google CTF 2018)</title>
+      <link>/2018/ocr-is-cool-google-ctf-2018/</link>
+      <pubDate>Tue, 03 Jul 2018 19:40:56 -0300</pubDate>
+      
+      <guid>/2018/ocr-is-cool-google-ctf-2018/</guid>
+      <description>OCR is cool (google CTF 2018) 
+Olá readers, vamos ao primeiro write-up { \o/ }. mesmo tendo vários write-ups rolando na web sobre esse ctf, resolvi publicar esse porque achei válido escrever a forma como resolvi essa challange, já que usei uma forma diferente dos write-ups que fui lendo depois, que a propósito recomendo a leitura deles, pois são um poço de conhecimento, deixarei todos links ao final, uma ressalva interessante, é saber ao menos do que se trata OCR (Optical Character Recognition - Reconhecimento optico de caracteres).</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="Rubens Santos">
+  <meta name="description" content="My blog about my crazy ideas and my studying">
+  <meta name="keywords" content="[Data Engineering IT Infrastructure DevOps Development Cyber Security Cloud Computing Big Data]">
+  
+  
+  <link rel="next" href="/2019/send-files-and-folders-with-netcat/" />
+  <link rel="canonical" href="/2018/ocr-is-cool-google-ctf-2018/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Ocr Is Cool (Google CTF 2018) | Neurobits
+       
+  </title>
+  <meta name="title" content="Ocr Is Cool (Google CTF 2018) | Neurobits">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Ocr Is Cool (Google CTF 2018)",
+    "headline" : "Ocr Is Cool (Google CTF 2018)",
+    "description" : "OCR is cool (google CTF 2018) \nOlá readers, vamos ao primeiro write-up { \\o\/ }. mesmo tendo vários write-ups rolando na web sobre esse ctf, resolvi publicar esse porque achei válido escrever a forma como resolvi essa challange, já que usei uma forma diferente dos write-ups que fui lendo depois, que a propósito recomendo a leitura deles, pois são um poço de conhecimento, deixarei todos links ao final, uma ressalva interessante, é saber ao menos do que se trata OCR (Optical Character Recognition - Reconhecimento optico de caracteres).",
+    "inLanguage" : "en-us",
+    "author" : "Rubens Santos - z1ron",
+    "creator" : "Rubens Santos - z1ron",
+    "publisher": "Rubens Santos - z1ron",
+    "accountablePerson" : "Rubens Santos - z1ron",
+    "copyrightHolder" : "Rubens Santos - z1ron",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-07-03 19:40:56 -0300 -03",
+    "dateModified" : "2018-07-03 19:40:56 -0300 -03",
+    "url" : "\/2018\/ocr-is-cool-google-ctf-2018\/",
+    "wordCount" : "1438",
+    "keywords" : [ "CTF", "Neurobits"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="/">Neurobits</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="/">Neurobits</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Ocr Is Cool (Google CTF 2018)</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="/" rel="author">Rubens Santos - z1ron</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-07-03 itemprop="datePublished">July 3, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="/categories/writeup/"> writeup </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h1 style="text-align: center"> OCR is cool (google CTF 2018)</h1>
+
+<p><br />
+<br />
+ Olá readers, vamos ao primeiro write-up { \o/ }. mesmo tendo vários write-ups rolando na web sobre esse ctf, resolvi publicar esse porque achei válido escrever a forma como resolvi essa challange, já que usei uma forma diferente dos write-ups que fui lendo depois, que a propósito recomendo a leitura deles, pois são um poço de conhecimento, deixarei todos links ao final, uma ressalva interessante, é saber ao menos do que se trata OCR (Optical Character Recognition - Reconhecimento optico de caracteres).</p>
+
+<h2 id="a-call">=[ A call ]=</h2>
+
+<p>Bom, em resumo, começa com uma citação de Júlio <em>Cesar</em> [ lembre desse
+nome ], e posteriormente fala que conectamos a um servidor e o que tinha era
+apenas um screenshot, porem o texto contido na imagem está confuso. Call completa:</p>
+
+<blockquote>
+<p>Caesar once said, don&rsquo;t stab me but taking a screenshot of an image sure feels
+lik e being stabbed. You connected to a VNC server on the Foobanizer 9000, it
+was view only. This screenshot is all that was present but it&rsquo;s gibberish. Can
+you recover the original text</p>
+</blockquote>
+
+<h2 id="a-análise">=[ A análise ]=</h2>
+
+<p>Baixei o arquivo disponivel, que nao mostrava seu formato, então comecei
+a analisar o arquivo com o comando <strong><code>file</code></strong>, que em resumo, lê o cabeçalho do
+arquivo [ todo arquivo, possui em seus primeiros bytes, uma assinatura
+do seu formato ] para identificar sua assinatura. Claro, o file não faz só isso,
+analisa outros bytes, afim de se obter informações sobre o arquivo.</p>
+
+<pre><code class="language-shell"> $ file 7ad5a7d71a7ac5f5056bb95dd326603e77a38f25a76a1fb7f7e6461e7d27b6a3
+7ad5a7d71a7ac5f5056bb95dd326603e77a38f25a76a1fb7f7e6461e7d27b6a3: Zip archive data, at least v2.0 to extract
+</code></pre>
+
+<p>Como prova do resultado do file [ que as vezes pode não identificar o tipo do arquivo devido seu cabeçalho ter sido alterado ], vou usar o <strong><code>xxd</code></strong> para fazer um dump do hexa do arquivo e fazer um pipe com <strong><code>head</code></strong> para exibir apenas as 4 primeiras linhas, ja que serão o suficiente para exibir o cabeçalho.</p>
+
+<pre><code class="language-shell"> $ xxd 7ad5a7d71a7ac5f5056bb95dd326603e77a38f25a76a1fb7f7e6461e7d27b6a3 | head -n4
+0000000: 504b 0304 1400 0000 0000 0000 0000 6c1b  PK............l.
+0000010: 02c8 c128 0200 c128 0200 0f00 0000 4f43  ...(...(......OC
+0000020: 525f 6973 5f63 6f6f 6c2e 706e 6789 504e  R_is_cool.png.PN
+0000030: 470d 0a1a 0a00 0000 0d49 4844 5200 0007  G........IHDR...
+</code></pre>
+
+<p>[ <em>Awesome</em> ], se olharmos os primeiros bytes do arquivo, veremos a assinatura do compressor zip, sendo um inteiro curto: 0x4b50. Seu identificador exclusivo é 0x04034b50 [ deve ter percebido que a ordem está inversa, isso ocorre em processadores baseados em x86 que carregam bits na memória de forma inversa - 504b - ], que em ascii é PK, inicias de Phil Katz, criador desse formato, como falado anteriormente, o file analisa esses bytes, afim de pegar informações e não só os primeiros bytes, note o cabeçalho na estrutura filename a mensagem não sofreu compactação, isso ocorre porque a compactação de mensagens curtas é ineficiente, além disso array compactada torna-se mais pesado. Bem, para saber mais da uma olhada nos links sobre zip e sequências de bytes (<em>Endianness</em>).</p>
+
+<p>Então <em>voilá</em>, o arquivo é um zip. Com isso, basta eu renomear (opcional) o arquivo e extrair o conteudo.</p>
+
+<pre><code class="language-shell"> $ mv 7ad5a7d71a7ac5f5056bb95dd326603e77a38f25a76a1fb7f7e6461e7d27b6a3 challange.zip &amp;&amp; unzip challange.zip
+Archive:  challange.zip
+ extracting: OCR_is_cool.png
+</code></pre>
+
+<p>Nice, o arquivo extraido é um png, como visto antes, nomeado <strong>OCR_is_coll</strong> [ daí o título desse write-up :3 ], ao visualiza-lo vejo que é um screenshot de um email, com seu conteudo todo cifrado { lol }, agora sim começa a diversão { \m/ }.</p>
+
+<h2 id="o-processo">=[ O processo ]=</h2>
+
+<p>Comecei a analisar a imagem. Eu poderia transforma-la em texto, que é a ideia da challange, of course, [ a conversão não é perfeita, mas quanto mais nítida e maior ela for, melhor será a conversão ], e tentar decifrar todo o conteudo.</p>
+
+<p>&ndash; Para quem tiver interesse em tentar dessa forma indico o <strong><code>tesseract</code></strong>, é uma ótima ferramenta para esse propósito e aí vaí uma <em>tip</em> para galera que for tentar a conversão, a resolução ta bem baixa, em algumas distros linux já contem uma ferramenta bem interessante para manipulação de imagens, a <strong><code>convert</code></strong>, uma das ferramentas do set <em>imagemagick</em>, se não a tiver, basta instalar o pacote mencionado. Essa não é a unica ferramenta para esse próposito, há outras boas, basta da uma pesquisada aí { ;p }. &ndash;</p>
+
+<p>Bem, comecei a análise da cifragem do email e aqui vai a dica da call [ eu avisei ], Cesar, um ditador da roma antiga que também possui uma cifragem antiga e já decifrada, que nada mais era, um salto [ a chave ] no alfabeto.</p>
+
+<p>ex: tendo a chave 3 [ que é a default ], entao abc seria def, pois cada letra seria somado 3.</p>
+
+<pre><code class="language-text">A B C ...
+- - -          ┐
+| | |_____     |
+| |_____  |    \  chave/saltos
+|_____  | |    /       3
+      | | |    |
+      v v v    ┘
+      A B C D E F ...
+</code></pre>
+
+<p>Como eu sempre procuro colaborar com minha preguiça, não quis fazer a conversão,
+apesar de não dar tanto trabalho { &lsquo;^.^ }, então veio o lapejo, bem, a cifra de Cesar
+apenas faz a conversão de letras, simbolos não { lol } e sabendo que o formato da flag é CTF{&hellip;} [ dada pela competição ], comecei a procurar algo parecido com o formato e  <em>check</em> { *.* }, <em>VMY{vtxltkvbiaxkbltlnulmbmnmbhgvbiaxk}</em>, nice, tenho provavelmente a flag o que me resta é achar a chave para decifrar e aqui lá vamos nós à preguiça novamente, a quantidade de possibilidades é de acordo com o alfabeto que foi usado para cifrar, nesse caso, 26 letras, ou seja, 26 possibilidades de saltos [ <em>goddammit</em> ], então peguei um script feito em python no github, mas no script eu teria que ficar inserindo a key e string a cada interpretada da source, [ <em>shit. Wait, i&rsquo;m coder</em>  lol ], modifiquei o script para esperar um input, que seria a string cifrada e os passos eram inseridos em cli (linha de comando), assim eu poderia usar uma outra linguagem poderosa para automatizar os inputs, a shell { *.* }, e não modificaria tanto o script do autor [ créditos ao final do write-up ], vamos aos scripts:</p>
+
+<pre><code class="language-python">'''
+ title: caesar.py
+ run: python2 caesar.py
+ usage: python2 caesar.py &lt;key&gt;
+ author: jameslyons
+ modified by: z1ron
+'''
+import sys
+# we need 2 helper mappings, from letters to ints and the inverse
+L2I = dict(zip(&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;,range(26)))
+I2L = dict(zip(range(26),&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;))
+
+key = int(sys.argv[1]) # aqui modifiquei para ser passado os saltos em cli
+plaintext = raw_input() # aqui modifiquei para ser passado a string
+
+# NOTA: aqui havia um loop para cifragem, como não era necessário, omiti.
+#  Para visualizar o código completo, acesse o link desta source ao final do write-up.
+
+# decipher
+plaintext2 = &quot;&quot;
+for c in plaintext.upper():
+    if c.isalpha(): plaintext2 += I2L[ (L2I[c] - key)%26 ]
+    else: plaintext2 += c
+
+print str(key)+': '+ plaintext2 # modifiquei para visualizar os passos e a string decifrada
+</code></pre>
+
+<h2 id="fatallity">=[ Fatallity ]=</h2>
+
+<p>Agora praticamente só preciso repetir a chamada do script em pyhton, 26 vezes e
+passar a string. Segue:</p>
+
+<pre><code class="language-shell"> $ for i in {1..27};do python2 caeser.py $i &lt; &lt;(echo 'VMY{vtxltkvbiaxkbltlnulmbmnmbhgvbiaxk}'); done
+1: ULX{USWKSJUAHZWJAKSKMTKLALMLAGFUAHZWJ}
+2: TKW{TRVJRITZGYVIZJRJLSJKZKLKZFETZGYVI}
+3: SJV{SQUIQHSYFXUHYIQIKRIJYJKJYEDSYFXUH}
+4: RIU{RPTHPGRXEWTGXHPHJQHIXIJIXDCRXEWTG}
+5: QHT{QOSGOFQWDVSFWGOGIPGHWHIHWCBQWDVSF}
+6: PGS{PNRFNEPVCUREVFNFHOFGVGHGVBAPVCURE}
+7: OFR{OMQEMDOUBTQDUEMEGNEFUFGFUAZOUBTQD}
+8: NEQ{NLPDLCNTASPCTDLDFMDETEFETZYNTASPC}
+9: MDP{MKOCKBMSZROBSCKCELCDSDEDSYXMSZROB}
+10: LCO{LJNBJALRYQNARBJBDKBCRCDCRXWLRYQNA}
+11: KBN{KIMAIZKQXPMZQAIACJABQBCBQWVKQXPMZ}
+12: JAM{JHLZHYJPWOLYPZHZBIZAPABAPVUJPWOLY}
+13: IZL{IGKYGXIOVNKXOYGYAHYZOZAZOUTIOVNKX}
+14: HYK{HFJXFWHNUMJWNXFXZGXYNYZYNTSHNUMJW}
+15: GXJ{GEIWEVGMTLIVMWEWYFWXMXYXMSRGMTLIV}
+16: FWI{FDHVDUFLSKHULVDVXEVWLWXWLRQFLSKHU}
+17: EVH{ECGUCTEKRJGTKUCUWDUVKVWVKQPEKRJGT}
+18: DUG{DBFTBSDJQIFSJTBTVCTUJUVUJPODJQIFS}
+19: CTF{CAESARCIPHERISASUBSTITUTIONCIPHER} &lt;-
+20: BSE{BZDRZQBHOGDQHRZRTARSHSTSHNMBHOGDQ}
+21: ARD{AYCQYPAGNFCPGQYQSZQRGRSRGMLAGNFCP}
+22: ZQC{ZXBPXOZFMEBOFPXPRYPQFQRQFLKZFMEBO}
+23: YPB{YWAOWNYELDANEOWOQXOPEPQPEKJYELDAN}
+24: XOA{XVZNVMXDKCZMDNVNPWNODOPODJIXDKCZM}
+25: WNZ{WUYMULWCJBYLCMUMOVMNCNONCIHWCJBYL}
+26: VMY{VTXLTKVBIAXKBLTLNULMBMNMBHGVBIAXK}
+27: ULX{USWKSJUAHZWJAKSKMTKLALMLAGFUAHZWJ}
+</code></pre>
+
+<p><em>checkmate</em> { \o/ } e aí está a flag, mas calma lá, a flag ainda não está no seu
+formato orginal, pois o script em python, faz a conversão de todos caracteres para
+seus respectivos em maiúsculo, facilitando assim a manipulação dos bytes da tabela
+ascii, basta apenas deixar no formato que foi encontrado a flag, no caso a string
+cifrada, resultando: <strong>CTF{caesarcipherissubstitutioncipher}.</strong></p>
+
+<h2 id="conclusão">=[ Conclusão ]=</h2>
+
+<p>Achei bastante interessante essa call, consegui praticar meu conhecimento em
+python e utilizar o bash para otimizar a tarefa, e eu sei, que poderia ter criado
+um script para manipular todos esses passos e me mostrar só a flag, inclusive, mas não queria passar tanto tempo programando, também sei que poderia ter modificado ja no script que peguei no github, porem não queria mexer muito no código do autor e assim eu conseguiria praticar um pouco otimização de tarefas com shell { :p }. É um write-up rápido, mas achei interessante mostrar um outro ponto de vista, na próxima, tento ser menos preguiçoso { &lsquo;^.^ }, é isso aí.</p>
+
+<h2 id="referências">=[ Referências ]=</h2>
+
+<p>OCR: <a href="https://pt.wikipedia.org/wiki/Reconhecimento_%C3%B3tico_de_caracteres" rel="nofollow noreferrer" target="_blank">Wikipedia</a> <br>
+ZIP: <a href="https://en.wikipedia.org/wiki/Zip_(file_format)" rel="nofollow noreferrer" target="_blank">Wikipedia</a> &amp; <a href="https://www.mql5.com/pt/articles/1971" rel="nofollow noreferrer" target="_blank">MQL5</a> <br>
+Endianness: <a href="https://en.wikipedia.org/wiki/Endianness" rel="nofollow noreferrer" target="_blank">Wikipedia</a> <br>
+Tabela ASCII: <a href="https://pt.wikipedia.org/wiki/ASCII" rel="nofollow noreferrer" target="_blank">Wikipedia</a> <br>
+Script: <a href="https://gist.github.com/jameslyons/8701593" rel="nofollow noreferrer" target="_blank">caesarCipher.py - jameslyons</a> <br>
+Outro write-up: <a href="https://0x000027.me/writeup-ocr-is-cool-google-ctf/" rel="nofollow noreferrer" target="_blank">0x000027</a> <br>
+Videos dessa call: <a href="https://www.youtube.com/watch?v=j9xht4K-MBk&amp;feature=youtu.be" rel="nofollow noreferrer" target="_blank">John Hammond</a> &amp; <a href="https://www.youtube.com/watch?v=qDYwcIf0LZw&amp;t=4026s" rel="nofollow noreferrer" target="_blank">GynvaelEN</a> <br>
+<a href="https://capturetheflag.withgoogle.com/" rel="nofollow noreferrer" target="_blank">CTF - google2018</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Rubens Santos </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=/2018/ocr-is-cool-google-ctf-2018/>/2018/ocr-is-cool-google-ctf-2018/</span>
+            </p>
+            
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="/tags/ctf/">
+                    #CTF</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+         
+        
+        <a href="/2019/send-files-and-folders-with-netcat/" class="next" rel="next" title="Send Files and Folders With Netcat">Send Files and Folders With Netcat&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2019 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="/">Rubens Santos</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>
