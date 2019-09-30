@@ -16,7 +16,7 @@
       <guid>/2019/send-files-and-folders-with-netcat/</guid>
       <description>&lt;p&gt;server:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ mkdir ${destination} &amp;amp;&amp;amp; cd ${destination} # your custom path dir
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ mkdir ${destination} &amp;amp;&amp;amp; cd ${destination} # your custom folder path
 $ nc -l ${port} | tar xf -
 &lt;/code&gt;&lt;/pre&gt;
 
