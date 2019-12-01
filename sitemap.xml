@@ -2,86 +2,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>/categories/</loc>
-      
-      <lastmod>2019-08-30T19:50:58-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>/tags/netcat/</loc>
-      
-      <lastmod>2019-08-30T19:50:58-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>/</loc>
-      
-      <lastmod>2019-08-30T19:50:58-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>/posts/</loc>
-      
-      <lastmod>2019-08-30T19:50:58-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>/2019/send-files-and-folders-with-netcat/</loc>
-      
-      <lastmod>2019-08-30T19:50:58-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>/tags/</loc>
-      
-      <lastmod>2019-08-30T19:50:58-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>/tags/tarball/</loc>
-      
-      <lastmod>2019-08-30T19:50:58-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>/categories/tips/</loc>
-      
-      <lastmod>2019-08-30T19:50:58-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
       <loc>/about/</loc>
       
       <lastmod>2019-08-28T22:07:30-03:00</lastmod>
@@ -92,19 +12,9 @@
     </url>
   
     <url>
-      <loc>/tags/ctf/</loc>
+      <loc>/</loc>
       
-      <lastmod>2018-07-03T19:40:56-03:00</lastmod>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>/2018/ocr-is-cool-google-ctf-2018/</loc>
-      
-      <lastmod>2018-07-03T19:40:56-03:00</lastmod>
+      <lastmod>2019-08-28T22:07:30-03:00</lastmod>
       
       
       
@@ -112,9 +22,15 @@
     </url>
   
     <url>
-      <loc>/categories/writeup/</loc>
+      <loc>/categories/</loc>
       
-      <lastmod>2018-07-03T19:40:56-03:00</lastmod>
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>/tags/</loc>
       
       
       
