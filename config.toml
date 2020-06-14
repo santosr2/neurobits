@@ -1,0 +1,41 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Neurobits"
+theme = "LeaveIt"
+
+enableRobotsTXT = true
+enableEmoji = true
+
+[menu]
+  [[menu.main]]
+    name = "about"
+    url = "/about/"
+    weight = 4
+
+  [[menu.main]]
+    name = "posts"
+    url = "/posts/"
+    weight = 2
+
+  [[menu.main]]
+    name = "projects"
+    url = "/projects/"
+    weight = 2
+
+[Permalinks]
+  posts = "/:year/:filename"
+
+[params]
+  since = 2018
+  author = "Rubens Santos"
+  avatar = "/images/avatar.jpeg"
+  subtitle = "follow me"
+
+  description = "My personal blog"
+  keywords = "data engineering,IT,infrastructure,devops,development"
+
+[params.social]
+  Github = "santosr2"
+  Twitter = "z1ron_"
+  Medium = "@segundo.santos16"
+  Linkedin = "rubens--santos"

@@ -1,3 +1,3 @@
-# Note
+# Neurobits
 
-Estou migrando os posts para o medium aos poucos.
+This is my personal page, welcome to **neurobits**.
