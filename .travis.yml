@@ -1,0 +1,22 @@
+before_install:
+  - sudo apt-get update
+  - sudo apt-get instal -y hugo
+
+stages:
+  - name: deploy
+    if: branch = master
+
+jobs:
+  include:
+    - stage: deploy
+      script:
+        - echo "Build page"
+        - hugo -D
+        - echo "Deploying to GH Pages"
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        keep_history: true
+        on:
+          branch: master
