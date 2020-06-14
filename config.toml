@@ -1,7 +1,7 @@
 baseURL = "/"
 languageCode = "en-us"
 title = "Neurobits"
-theme = "LeaveIt"
+theme = "leaveit"
 
 enableRobotsTXT = true
 enableEmoji = true
