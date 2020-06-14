@@ -1,6 +1,6 @@
 before_install:
   - sudo apt-get update
-  - sudo apt-get instal -y hugo
+  - sudo apt-get install -y hugo
 
 stages:
   - name: deploy
