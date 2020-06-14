@@ -9,26 +9,26 @@ enableEmoji = true
 [menu]
   [[menu.main]]
     name = "about"
-    url = "/about/"
+    url = "/neurobits/about/"
     weight = 4
 
   [[menu.main]]
     name = "posts"
-    url = "/posts/"
+    url = "/neurobits/posts/"
     weight = 2
 
   [[menu.main]]
     name = "projects"
-    url = "/projects/"
+    url = "/neurobits/projects/"
     weight = 2
 
 [Permalinks]
-  posts = "/:year/:filename"
+  posts = "/neurobits/:year/:filename"
 
 [params]
   since = 2018
   author = "Rubens Santos"
-  avatar = "/images/avatar.jpeg"
+  avatar = "/neurobits/images/avatar.jpeg"
   subtitle = "follow me"
 
   description = "My personal blog"
