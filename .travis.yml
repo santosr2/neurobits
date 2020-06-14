@@ -1,3 +1,10 @@
+language: go
+
+go:
+  - "1.13"
+
+sudo: false
+
 branches:
   only:
     - master
@@ -11,7 +18,14 @@ env:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install -y hugo
+
+install:
+  - go get github.com/magefile/mage
+  - go get -d github.com/gohugoio/hugo
+  - cd ${GOPATH:-$HOME/go}/src/github.com/gohugoio/hugo
+  - mage vendor
+  - mage install
+  - cd $TRAVIS_BUILD_DIR
 
 script:
   - hugo --gc --minify
