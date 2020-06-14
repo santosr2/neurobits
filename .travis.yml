@@ -20,11 +20,9 @@ before_install:
   - sudo apt-get update
 
 install:
-  - go get github.com/magefile/mage
   - go get -d github.com/gohugoio/hugo
   - cd ${GOPATH:-$HOME/go}/src/github.com/gohugoio/hugo
-  - mage vendor
-  - mage install
+  - go install --tags extended
   - cd $TRAVIS_BUILD_DIR
 
 script:
@@ -32,7 +30,7 @@ script:
 
 deploy:
   provider: pages
-  edge: true
   skip_cleanup: true
+  keep_history: true
   github_token: $GITHUB_TOKEN
   local_dir: public
