@@ -14,7 +14,7 @@ jobs:
     - stage: deploy
       script:
         - echo "Build page"
-        - hugo -D --gc --minify
+        - hugo -D
         - echo "Deploying to GH Pages"
       deploy:
         provider: pages
