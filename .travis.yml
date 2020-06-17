@@ -23,7 +23,7 @@ before_install:
 install:
   - curl -fsSL https://github.com/gohugoio/hugo/releases/download/v0.72.0/hugo_0.72.0_Linux-64bit.deb -o /tmp/hugo.deb
   - cd /tmp
-  - dpkg -i hugo.deb
+  - sudo dpkg -i hugo.deb
   - cd $TRAVIS_BUILD_DIR
 
 script:
