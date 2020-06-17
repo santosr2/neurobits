@@ -27,7 +27,8 @@ install:
   - cd $TRAVIS_BUILD_DIR
 
 script:
-  - hugo --gc --minify
+  - hugo -D --gc
+  - echo "neurobits.santosr.me" > public/CNAME
 
 deploy:
   provider: pages
