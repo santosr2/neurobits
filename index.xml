@@ -1,1 +1,40 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neurobits on Neurobits</title><link>/</link><description>Recent content in Neurobits on Neurobits</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="/" rel="self" type="application/rss+xml"/></channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Neurobits on Neurobits</title>
+    <link>/</link>
+    <description>Recent content in Neurobits on Neurobits</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 12 Jun 2020 03:22:17 +0000</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Projects</title>
+      <link>/projects/</link>
+      <pubDate>Fri, 12 Jun 2020 03:22:17 +0000</pubDate>
+      
+      <guid>/projects/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Posts</title>
+      <link>/posts/</link>
+      <pubDate>Fri, 12 Jun 2020 03:21:50 +0000</pubDate>
+      
+      <guid>/posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Fri, 12 Jun 2020 03:16:44 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>&lt;p&gt;0 or 1 is my culture, one of the &lt;em&gt;Oeste Geek Day&lt;/em&gt; idealists - event about IT and geek/nerd culture lovers - IT infrastructure, management, development, &lt;strong&gt;data engineering&lt;/strong&gt;, big data, artificial intelligence and analytics are all part of my daily life, &lt;strong&gt;geek&lt;/strong&gt;, &lt;strong&gt;self-learning&lt;/strong&gt; and cyber security enthusiast, writer in my spare time and a black screen lover. &lt;strong&gt;In short, just a guy fascinated by computers&lt;/strong&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
