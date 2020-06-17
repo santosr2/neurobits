@@ -1,7 +1,7 @@
 language: go
 
 go:
-  - "1.13"
+  - "1.14"
 
 sudo: false
 
@@ -18,11 +18,12 @@ env:
 
 before_install:
   - sudo apt-get update
+  - sudo apt install curl
 
 install:
-  - go get -d github.com/gohugoio/hugo
-  - cd ${GOPATH:-$HOME/go}/src/github.com/gohugoio/hugo
-  - go install --tags extended
+  - curl -fsSL https://github.com/gohugoio/hugo/releases/download/v0.72.0/hugo_0.72.0_Linux-64bit.deb -o /tmp/hugo.deb
+  - cd /tmp
+  - dpkg -i hugo.deb
   - cd $TRAVIS_BUILD_DIR
 
 script:
