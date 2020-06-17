@@ -27,7 +27,7 @@ install:
   - cd $TRAVIS_BUILD_DIR
 
 script:
-  - hugo -D --gc --minify
+  - hugo --gc --minify
 
 deploy:
   provider: pages
