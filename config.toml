@@ -1,34 +1,35 @@
-baseURL = "/neurobits"
+baseURL = "/"
 languageCode = "en-us"
 title = "Neurobits"
 theme = "leaveit"
 
 enableRobotsTXT = true
 enableEmoji = true
+googleAnalytics = "UA-169749457-1"
 
 [menu]
   [[menu.main]]
     name = "about"
-    url = "/neurobits/about/"
+    url = "/about/"
     weight = 4
 
   [[menu.main]]
     name = "posts"
-    url = "/neurobits/posts/"
-    weight = 2
+    url = "/posts/"
+    weight = 1
 
   [[menu.main]]
     name = "projects"
-    url = "/neurobits/projects/"
+    url = "/projects/"
     weight = 2
 
 [Permalinks]
-  posts = "/neurobits/:year/:filename"
+  posts = "/:year/:filename"
 
 [params]
   since = 2018
   author = "Rubens Santos"
-  avatar = "/neurobits/images/avatar.jpeg"
+  avatar = "/images/avatar.jpeg"
   subtitle = "follow me"
 
   description = "My personal blog"
