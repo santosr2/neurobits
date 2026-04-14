@@ -1,0 +1,65 @@
+{{- /*
+  backlinks.json: Derived backlinks for all notes
+
+  Parses all notes to find which ones link to each other via:
+  - Wiki-link syntax: [[note-slug]]
+  - Wiki-link with display text: [[note-slug|display]]
+  - Markdown links to /notes/slug/
+  - Shortcode links via {{< note "slug" >}}
+
+  Output format:
+  {
+    "note-slug": [
+      { "title": "Linking Note", "url": "/notes/linking-note/", "excerpt": "...", "tags": [...] }
+    ]
+  }
+*/ -}}
+{{- $backlinks := dict -}}
+{{- $notes := where .Site.RegularPages "Type" "notes" -}}
+
+{{- range $notes -}}
+  {{- $currentSlug := .File.ContentBaseName -}}
+  {{- $currentTitle := .Title -}}
+  {{- $currentURL := .RelPermalink -}}
+  {{- $currentTags := .Params.tags | default slice -}}
+  {{- $currentExcerpt := .Summary | plainify | truncate 120 -}}
+  {{- $rawContent := .RawContent | string -}}
+
+  {{- /* Check all other notes to see if this note links to them */ -}}
+  {{- range $notes -}}
+    {{- $targetSlug := .File.ContentBaseName -}}
+
+    {{- if ne $currentSlug $targetSlug -}}
+      {{- $hasLink := false -}}
+
+      {{- /* Check for [[target-slug]] wiki-link */ -}}
+      {{- if findRE (printf `\[\[%s(\|[^\]]+)?\]\]` $targetSlug) $rawContent 1 -}}
+        {{- $hasLink = true -}}
+      {{- end -}}
+
+      {{- /* Check for markdown link to /notes/target-slug/ */ -}}
+      {{- if findRE (printf `\]\(/notes/%s/?\)` $targetSlug) $rawContent 1 -}}
+        {{- $hasLink = true -}}
+      {{- end -}}
+
+      {{- /* Check for shortcode {{< note "target-slug" >}} */ -}}
+      {{- if findRE (printf `\{\{<\s*note\s+"%s"` $targetSlug) $rawContent 1 -}}
+        {{- $hasLink = true -}}
+      {{- end -}}
+
+      {{- if $hasLink -}}
+        {{- $backlink := dict
+            "title" $currentTitle
+            "url" $currentURL
+            "excerpt" $currentExcerpt
+            "tags" $currentTags -}}
+
+        {{- $existing := index $backlinks $targetSlug | default slice -}}
+        {{- $updated := $existing | append $backlink -}}
+        {{- $backlinks = merge $backlinks (dict $targetSlug $updated) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $backlinks | jsonify -}}

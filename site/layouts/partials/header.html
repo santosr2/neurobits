@@ -1,0 +1,36 @@
+<header class="site-header">
+  <div class="container brand-row">
+    <div class="brand-lockup">
+      <a class="brand glitch" href="{{ "/" | relURL }}" data-text="{{ .Site.Title }}">{{ .Site.Title }}</a>
+      <span class="brand-kicker">Personal notes, posts, and projects</span>
+    </div>
+    <nav class="site-nav" aria-label="Primary" data-site-nav data-open="false">
+      <ul class="nav-list">
+        {{ $page := . }}
+        {{ range .Site.Menus.main }}
+          {{ $isActive := or
+            ($page.IsMenuCurrent "main" .)
+            ($page.HasMenuCurrent "main" .)
+            (eq $page.RelPermalink .URL)
+            (and (eq .Identifier "blog") (eq $page.Section "blog"))
+            (and (eq .Identifier "notes") (eq $page.Section "notes"))
+            (and (eq .Identifier "projects") (eq $page.Section "projects"))
+            (and (eq .Identifier "about") (eq $page.RelPermalink "/about/"))
+            (and (eq .Identifier "home") $page.IsHome) }}
+          <li>
+            <a
+              class="nav-link"
+              href="{{ .URL | relURL }}"
+              {{ if $isActive }}aria-current="page"{{ end }}>
+              {{ .Name }}
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle navigation">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span>Menu</span>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,39 @@
+{{ define "main" }}
+  {{ $pages := .RegularPages.ByDate.Reverse }}
+  {{ partial "section-header.html" (dict
+    "title" .Title
+    "eyebrow" "Build log"
+    "description" .Params.description
+    "count" (len $pages)
+    "label" "projects"
+    "note" "Portfolio with receipts") }}
+
+  {{ if gt (len $pages) 0 }}
+    <section class="project-grid">
+      {{ range $pages }}
+        <article class="project-card">
+          <p class="eyebrow">Project</p>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <div class="stream-meta">
+            <span>{{ .Date.Format "January 2, 2006" }}</span>
+            {{ with .Params.status }}<span>Status: {{ . }}</span>{{ end }}
+          </div>
+          {{ with .Params.description }}
+            <p class="project-summary">{{ . }}</p>
+          {{ else with .Summary }}
+            <div class="project-summary">{{ . }}</div>
+          {{ end }}
+          {{ partial "meta-tags.html" .Params.tags }}
+          <div class="project-links">
+            <a class="stream-link" href="{{ .RelPermalink }}">View project</a>
+          </div>
+        </article>
+      {{ end }}
+    </section>
+  {{ else }}
+    {{ partial "empty-state.html" (dict
+      "eyebrow" "Build log"
+      "title" "No projects yet."
+      "copy" (.Params.empty_state | default "This section is scaffolded for portfolio and project pages.")) }}
+  {{ end }}
+{{ end }}

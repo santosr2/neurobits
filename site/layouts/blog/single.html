@@ -1,0 +1,33 @@
+{{ define "main" }}
+  <article class="article-shell">
+    <div class="article-main">
+      <p class="eyebrow">Blog post</p>
+      <h1 class="article-title">{{ .Title }}</h1>
+      <div class="single-meta">
+        {{ if .Date }}<span>{{ .Date.Format "January 2, 2006" }}</span>{{ end }}
+        {{ with .Params.series }}<span>Series: {{ . }}</span>{{ end }}
+      </div>
+      {{ with .Params.description }}
+        <p class="lede">{{ . }}</p>
+      {{ end }}
+      {{ partial "meta-tags.html" .Params.tags }}
+      <div class="prose">
+        {{ .Content }}
+      </div>
+      <nav class="single-nav" aria-label="Article navigation">
+        {{ with .PrevInSection }}<a href="{{ .RelPermalink }}">Previous: {{ .Title }}</a>{{ else }}<span></span>{{ end }}
+        {{ with .NextInSection }}<a href="{{ .RelPermalink }}">Next: {{ .Title }}</a>{{ end }}
+      </nav>
+    </div>
+    <aside class="article-sidebar">
+      <section class="sidebar-panel">
+        <h2>Channel</h2>
+        <p>Longer arguments, field notes, and posts that deserve more than a short note card.</p>
+      </section>
+      <section class="sidebar-panel">
+        <h2>Reading mode</h2>
+        <p>Prose-first layout with room for code, diagrams, and future series metadata.</p>
+      </section>
+    </aside>
+  </article>
+{{ end }}

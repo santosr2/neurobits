@@ -1,3 +1,14 @@
-public
-.vscode
-resources
+# Hugo build output (never committed)
+site/public/
+site/resources/
+site/.hugo_build.lock
+
+# Python
+*.egg-info/
+__pycache__
+.pytest_cache
+
+# AI
+.specs
+.plans
+.history

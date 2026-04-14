@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ block "title" . }}{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Params.description }}{{ . }}{{ else with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta name="theme-color" content="#07111f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    {{ with resources.Get "css/main.css" }}
+      {{ $style := . | minify | fingerprint }}
+      <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{ end }}
+    {{ block "head" . }}{{ end }}
+  </head>
+  <body class="kind-{{ .Kind }}{{ with .Section }} section-{{ . }}{{ else }} section-home{{ end }}">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="site-shell">
+      {{ partial "header.html" . }}
+      <main id="main-content" class="container page-content">
+        {{ block "main" . }}{{ end }}
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ with resources.Get "js/main.js" }}
+      {{ $script := . | minify | fingerprint }}
+      <script defer src="{{ $script.RelPermalink }}"></script>
+    {{ end }}
+    {{ block "body-end" . }}{{ end }}
+  </body>
+</html>

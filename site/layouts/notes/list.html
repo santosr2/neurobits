@@ -1,0 +1,33 @@
+{{ define "main" }}
+  {{ $pages := .RegularPages.ByDate.Reverse }}
+  {{ partial "section-header.html" (dict
+    "title" .Title
+    "eyebrow" "Quick capture index"
+    "description" .Params.description
+    "count" (len $pages)
+    "label" "notes"
+    "note" "Dense and link-ready") }}
+
+  {{ if gt (len $pages) 0 }}
+    <section class="note-grid">
+      {{ range $pages }}
+        <article class="note-card">
+          <p class="eyebrow">Note</p>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <div class="stream-meta">
+            <span>{{ .Date.Format "January 2, 2006" }}</span>
+          </div>
+          {{ with .Summary }}
+            <div class="note-summary">{{ . }}</div>
+          {{ end }}
+          {{ partial "meta-tags.html" .Params.tags }}
+        </article>
+      {{ end }}
+    </section>
+  {{ else }}
+    {{ partial "empty-state.html" (dict
+      "eyebrow" "Quick capture index"
+      "title" "No notes yet."
+      "copy" (.Params.empty_state | default "The first note will land here once capture and migration are wired up.")) }}
+  {{ end }}
+{{ end }}

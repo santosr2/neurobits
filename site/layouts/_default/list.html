@@ -1,0 +1,38 @@
+{{ define "main" }}
+  {{ partial "section-header.html" (dict
+    "title" .Title
+    "eyebrow" (cond (or (eq .Kind "taxonomy") (eq .Kind "term")) "Taxonomy" "Archive")
+    "description" (.Params.description | default .Content)
+    "count" (len .RegularPages)
+    "label" "entries"
+    "note" "Shared archive view") }}
+
+  {{ $pages := .RegularPages.ByDate.Reverse }}
+  {{ if gt (len $pages) 0 }}
+    <section class="stream-list">
+      {{ range $pages }}
+        <article class="stream-item">
+          <div>
+            <p class="eyebrow">{{ .Section }}</p>
+            <h2 class="stream-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <div class="stream-meta">
+              <span>{{ .Date.Format "January 2, 2006" }}</span>
+            </div>
+            {{ with .Summary }}
+              <div class="stream-excerpt">{{ . }}</div>
+            {{ end }}
+            {{ partial "meta-tags.html" .Params.tags }}
+          </div>
+          <div class="stream-actions">
+            <a class="stream-link" href="{{ .RelPermalink }}">Open entry</a>
+          </div>
+        </article>
+      {{ end }}
+    </section>
+  {{ else }}
+    {{ partial "empty-state.html" (dict
+      "eyebrow" "Quiet channel"
+      "title" .Title
+      "copy" (.Params.empty_state | default "This section is scaffolded and ready for content.")) }}
+  {{ end }}
+{{ end }}

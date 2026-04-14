@@ -1,0 +1,9 @@
+# Ignore external links that may rate-limit or require auth
+https://github.com/santosr2/*
+https://linkedin.com/*
+https://twitter.com/*
+https://x.com/*
+
+# Ignore localhost/development URLs
+http://localhost:*
+http://127.0.0.1:*

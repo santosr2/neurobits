@@ -1,0 +1,16 @@
+{{- /*
+  note shortcode: link to a note by slug
+
+  Usage:
+    {{< note "my-note-slug" >}}              - displays note title as link text
+    {{< note "my-note-slug" "custom text" >}} - displays custom text as link
+    {{< note slug="my-note-slug" >}}         - named parameter form
+*/ -}}
+{{- $slug := .Get 0 | default (.Get "slug") -}}
+{{- $text := .Get 1 | default (.Get "text") -}}
+{{- $note := .Site.GetPage (printf "/notes/%s" $slug) -}}
+{{- if $note -}}
+  <a href="{{ $note.RelPermalink }}" class="wikilink" data-note-slug="{{ $slug }}">{{ $text | default $note.Title }}</a>
+{{- else -}}
+  <span class="wikilink wikilink--broken" data-note-slug="{{ $slug }}" title="Note not found: {{ $slug }}">{{ $text | default $slug }}</span>
+{{- end -}}

@@ -1,5 +1,7 @@
 # Neurobits
 
-[![Build](https://img.shields.io/travis/com/santosr2/neurobits?label=neurobits)](https://travis-ci.com/santosr2/neurobits)
+Isolated replacement workspace for the Neurobits refactor.
 
-This is my personal page, welcome to **neurobits**.
+- `site/` holds the new Hugo implementation.
+- `tools/` is reserved for the thin Python authoring wrapper and migration utilities.
+- Legacy root files stay reference-only while work moves forward here.

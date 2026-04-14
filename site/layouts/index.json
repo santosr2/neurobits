@@ -1,0 +1,14 @@
+{{- $sections := .Site.Params.mainSections | default (slice "blog" "notes" "projects") -}}
+{{- $pages := where .Site.RegularPages "Section" "in" $sections -}}
+[
+  {{- range $index, $page := $pages.ByDate.Reverse -}}
+    {{- if gt $index 0 }},{{ end }}
+    {
+      "title": {{ $page.Title | jsonify }},
+      "section": {{ $page.Section | jsonify }},
+      "summary": {{ $page.Summary | plainify | jsonify }},
+      "permalink": {{ $page.RelPermalink | jsonify }},
+      "tags": {{ $page.Params.tags | default (slice) | jsonify }}
+    }
+  {{- end -}}
+]

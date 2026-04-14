@@ -1,0 +1,67 @@
+baseURL = "/"
+languageCode = "en-US"
+defaultContentLanguage = "en"
+title = "Neurobits"
+enableRobotsTXT = true
+summaryLength = 36
+rssLimit = 20
+
+[params]
+  description = "Neon notes, blog posts, and projects."
+  author = "Neurobits"
+  mainSections = ["blog", "notes", "projects"]
+
+[taxonomies]
+  tag = "tags"
+
+[pagination]
+  pagerSize = 10
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
+
+[permalinks]
+  blog = "/blog/:year/:month/:slugorcontentbasename/"
+  notes = "/notes/:slugorcontentbasename/"
+  projects = "/projects/:slugorcontentbasename/"
+  pages = "/:slugorcontentbasename/"
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "blog"
+    name = "Blog"
+    url = "/blog/"
+    weight = 2
+
+  [[menu.main]]
+    identifier = "notes"
+    name = "Notes"
+    url = "/notes/"
+    weight = 3
+
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 4
+
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 5
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.160.0"

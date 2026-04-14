@@ -1,0 +1,23 @@
+{{ define "main" }}
+  <article class="page-shell surface">
+    <header>
+      <p class="eyebrow">{{ if eq .Section "pages" }}Page{{ else }}{{ .Section | title }}{{ end }}</p>
+      <h1 class="page-title">{{ .Title }}</h1>
+      {{ if .Date }}
+        <p class="content-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        </p>
+      {{ end }}
+      {{ with .Params.tags }}
+        <ul class="tag-list">
+          {{ range . }}
+            <li class="tag">{{ . }}</li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    </header>
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </article>
+{{ end }}

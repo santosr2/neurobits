@@ -1,0 +1,29 @@
+{{- $title := .title -}}
+{{- $eyebrow := .eyebrow | default "Section" -}}
+{{- $description := .description -}}
+{{- $count := .count | default 0 -}}
+{{- $label := .label | default "entries" -}}
+{{- $note := .note | default "" -}}
+<section class="surface section-header">
+  <div class="section-header-grid">
+    <div>
+      <p class="eyebrow">{{ $eyebrow }}</p>
+      <h1 class="section-heading">{{ $title }}</h1>
+      {{ with $description }}
+        <p class="section-summary">{{ . }}</p>
+      {{ end }}
+    </div>
+    <div class="section-rail">
+      <div class="rail-stat">
+        <span class="rail-label">Visible</span>
+        <span class="rail-value">{{ $count }} {{ $label }}</span>
+      </div>
+      {{ with $note }}
+        <div class="rail-stat">
+          <span class="rail-label">Mode</span>
+          <span class="rail-value">{{ . }}</span>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

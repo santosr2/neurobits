@@ -1,0 +1,41 @@
+{{ define "main" }}
+  {{ $pages := .RegularPages.ByDate.Reverse }}
+  {{ partial "section-header.html" (dict
+    "title" .Title
+    "eyebrow" "Editorial stream"
+    "description" .Params.description
+    "count" (len $pages)
+    "label" "posts"
+    "note" "Long-form lane") }}
+
+  {{ if gt (len $pages) 0 }}
+    <section class="stream-list">
+      {{ range $pages }}
+        <article class="stream-item">
+          <div>
+            <p class="eyebrow">Blog post</p>
+            <h2 class="stream-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <div class="stream-meta">
+              <span>{{ .Date.Format "January 2, 2006" }}</span>
+              {{ with .Params.series }}<span>Series: {{ . }}</span>{{ end }}
+            </div>
+            {{ with .Params.description }}
+              <p class="stream-excerpt">{{ . }}</p>
+            {{ else with .Summary }}
+              <div class="stream-excerpt">{{ . }}</div>
+            {{ end }}
+            {{ partial "meta-tags.html" .Params.tags }}
+          </div>
+          <div class="stream-actions">
+            <a class="stream-link" href="{{ .RelPermalink }}">Read post</a>
+          </div>
+        </article>
+      {{ end }}
+    </section>
+  {{ else }}
+    {{ partial "empty-state.html" (dict
+      "eyebrow" "Editorial stream"
+      "title" "No blog posts yet."
+      "copy" (.Params.empty_state | default "This section is ready for the first long-form entry.")) }}
+  {{ end }}
+{{ end }}

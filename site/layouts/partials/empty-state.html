@@ -1,0 +1,8 @@
+{{- $eyebrow := .eyebrow | default "Empty" -}}
+{{- $title := .title | default "Nothing here yet." -}}
+{{- $copy := .copy | default "This section is waiting for its first entry." -}}
+<section class="empty-shell">
+  <p class="eyebrow">{{ $eyebrow }}</p>
+  <h2 class="section-heading">{{ $title }}</h2>
+  <p>{{ $copy }}</p>
+</section>
