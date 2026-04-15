@@ -7,6 +7,8 @@ site/.hugo_build.lock
 *.egg-info/
 __pycache__
 .pytest_cache
+.ruff_cache
+.venv
 
 # AI
 .specs

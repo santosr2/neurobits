@@ -1,8 +1,5 @@
 """Tests for config module."""
 
-import os
-from pathlib import Path
-
 import pytest
 
 from neurobits.config import get_config_path, get_editor, get_site_path

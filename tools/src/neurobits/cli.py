@@ -38,7 +38,9 @@ def main():
 @main.command()
 @click.argument("section", type=click.Choice(["blog", "note", "project"]))
 @click.option("--title", "-t", required=True, help="Title for the new content")
-@click.option("--draft/--no-draft", default=True, help="Create as draft (default: true)")
+@click.option(
+    "--draft/--no-draft", default=True, help="Create as draft (default: true)"
+)
 def new(section: str, title: str, draft: bool):
     """Create new content (blog, note, or project)."""
     site_path = get_site_path()
@@ -168,7 +170,11 @@ def doctor():
     hugo = shutil.which("hugo")
     if hugo:
         result = subprocess.run([hugo, "version"], capture_output=True, text=True)
-        version = result.stdout.strip().split("\n")[0] if result.returncode == 0 else "unknown"
+        version = (
+            result.stdout.strip().split("\n")[0]
+            if result.returncode == 0
+            else "unknown"
+        )
         click.echo(f"hugo: {version}")
     else:
         click.echo("hugo: NOT FOUND", err=True)
@@ -206,7 +212,7 @@ def doctor():
             click.echo(f"site_path: {site_path} (NOT FOUND)", err=True)
             issues.append(f"site_path does not exist: {site_path}")
     except RuntimeError as e:
-        click.echo(f"site_path: NOT CONFIGURED", err=True)
+        click.echo("site_path: NOT CONFIGURED", err=True)
         issues.append(str(e))
 
     # Summary

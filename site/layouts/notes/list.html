@@ -6,22 +6,51 @@
     "description" .Params.description
     "count" (len $pages)
     "label" "notes"
-    "note" "Dense and link-ready") }}
+    "note" "Fast and link-ready") }}
 
   {{ if gt (len $pages) 0 }}
-    <section class="note-grid">
-      {{ range $pages }}
-        <article class="note-card">
-          <p class="eyebrow">Note</p>
-          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-          <div class="stream-meta">
-            <span>{{ .Date.Format "January 2, 2006" }}</span>
+    {{ $lead := index $pages 0 }}
+    {{ $rest := after 1 $pages }}
+    <section class="note-layout">
+      <article class="note-card note-card-lead">
+        <div class="note-card-copy">
+          <p class="eyebrow">Newest note</p>
+          <h2><a href="{{ $lead.RelPermalink }}">{{ $lead.Title }}</a></h2>
+          <div class="stream-meta note-meta">
+            <span>{{ $lead.Date.Format "January 2, 2006" }}</span>
+            {{ with $lead.Params.tags }}<span>{{ len . }} tags</span>{{ end }}
           </div>
-          {{ with .Summary }}
+          {{ with $lead.Summary }}
             <div class="note-summary">{{ . }}</div>
           {{ end }}
-          {{ partial "meta-tags.html" .Params.tags }}
-        </article>
+        </div>
+        <div class="note-card-footer">
+          {{ partial "meta-tags.html" $lead.Params.tags }}
+          <a class="card-link" href="{{ $lead.RelPermalink }}">Open note</a>
+        </div>
+      </article>
+
+      {{ if gt (len $rest) 0 }}
+        <div class="note-grid note-grid-secondary">
+          {{ range $rest }}
+            <article class="note-card note-card-secondary">
+              <div class="note-card-copy">
+                <p class="eyebrow">Note</p>
+                <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                <div class="stream-meta note-meta">
+                  <span>{{ .Date.Format "January 2, 2006" }}</span>
+                </div>
+                {{ with .Summary }}
+                  <div class="note-summary">{{ . }}</div>
+                {{ end }}
+              </div>
+              <div class="note-card-footer">
+                {{ partial "meta-tags.html" .Params.tags }}
+                <a class="card-link" href="{{ .RelPermalink }}">Read note</a>
+              </div>
+            </article>
+          {{ end }}
+        </div>
       {{ end }}
     </section>
   {{ else }}

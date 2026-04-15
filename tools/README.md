@@ -5,9 +5,15 @@ Thin Python wrapper around Hugo for Neurobits content authoring.
 ## Installation
 
 ```bash
+cd ..
+mise install
+
 cd tools
-pip install -e .
+uv sync
 ```
+
+If `mise` is not activated in your shell yet, prefix commands with
+`mise exec --`.
 
 ## Configuration
 
@@ -39,6 +45,6 @@ site_path = "~/code/neurobits/site"
 ## Development
 
 ```bash
-pip install -e ".[dev]"
-pytest
+uv sync --extra dev
+uv run pytest -v
 ```

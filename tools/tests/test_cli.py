@@ -1,8 +1,5 @@
 """Tests for CLI commands."""
 
-import subprocess
-from unittest.mock import patch
-
 import pytest
 from click.testing import CliRunner
 
@@ -24,7 +21,9 @@ def test_version(runner):
 
 def test_doctor_hugo_not_found(runner, monkeypatch):
     """doctor reports when hugo not found."""
-    monkeypatch.setattr("shutil.which", lambda cmd: None if cmd == "hugo" else "/usr/bin/git")
+    monkeypatch.setattr(
+        "shutil.which", lambda cmd: None if cmd == "hugo" else "/usr/bin/git"
+    )
     monkeypatch.delenv("NEUROBITS_SITE_PATH", raising=False)
     monkeypatch.setenv("XDG_CONFIG_HOME", "/nonexistent")
 
@@ -49,6 +48,7 @@ def test_doctor_all_ok(runner, monkeypatch, tmp_path):
         class Result:
             returncode = 0
             stdout = f"{args[0]} version 1.0"
+
         return Result()
 
     monkeypatch.setattr("shutil.which", mock_which)
@@ -71,15 +71,19 @@ def test_build_calls_hugo(runner, monkeypatch, tmp_path):
 
     def mock_run(args, **kwargs):
         called_with.append(args)
+
         class Result:
             returncode = 0
+
         return Result()
 
     monkeypatch.setattr("subprocess.run", mock_run)
 
     result = runner.invoke(main, ["build"])
     assert result.exit_code == 0
-    assert any("--minify" in args and "--cleanDestinationDir" in args for args in called_with)
+    assert any(
+        "--minify" in args and "--cleanDestinationDir" in args for args in called_with
+    )
 
 
 def test_preview_starts_server(runner, monkeypatch, tmp_path):
@@ -94,8 +98,10 @@ def test_preview_starts_server(runner, monkeypatch, tmp_path):
 
     def mock_run(args, **kwargs):
         called_with.append(args)
+
         class Result:
             returncode = 0
+
         return Result()
 
     monkeypatch.setattr("subprocess.run", mock_run)

@@ -11,6 +11,15 @@ Neurobits is a personal site built with Hugo and a thin Python CLI wrapper for c
 
 ## Commands
 
+### Runtime setup (run from repo root)
+
+```bash
+mise install                         # Install hugo and uv from mise.toml
+```
+
+If the shell is not activated through `mise`, prefix runtime commands with
+`mise exec --`.
+
 ### Hugo (run from `site/`)
 
 ```bash
@@ -23,14 +32,15 @@ Requires Hugo extended v0.160.0+ (check with `hugo version`).
 ### Python CLI (run from `tools/`)
 
 ```bash
-pip install -e ".[dev]"            # Install with dev dependencies
+uv sync --extra dev                # Install project + dev dependencies
 
-neurobits new blog -t "Title"      # Create blog post, opens in $EDITOR
-neurobits new note -t "Title"      # Create note
-neurobits new project -t "Title"   # Create project page
-neurobits preview                  # Start Hugo dev server
-neurobits build                    # Production build
-neurobits doctor                   # Check dependencies and config
+uv run neurobits new blog -t "Title"      # Create blog post, opens in $EDITOR
+uv run neurobits new note -t "Title"      # Create note
+uv run neurobits new project -t "Title"   # Create project page
+uv run neurobits preview                  # Start Hugo dev server
+uv run neurobits build                    # Production build
+uv run neurobits doctor                   # Check dependencies and config
+
 ```
 
 Configure site path via `NEUROBITS_SITE_PATH` env var or `~/.config/neurobits/config.toml`.
@@ -38,8 +48,8 @@ Configure site path via `NEUROBITS_SITE_PATH` env var or `~/.config/neurobits/co
 ### Tests
 
 ```bash
-cd tools && pytest                 # Run all tests
-cd tools && pytest tests/test_cli.py::test_doctor_all_ok  # Single test
+cd tools && uv run pytest -v       # Run all tests
+cd tools && uv run pytest tests/test_cli.py::test_doctor_all_ok  # Single test
 ```
 
 ## Architecture

@@ -9,25 +9,72 @@
     "note" "Portfolio with receipts") }}
 
   {{ if gt (len $pages) 0 }}
-    <section class="project-grid">
-      {{ range $pages }}
-        <article class="project-card">
-          <p class="eyebrow">Project</p>
-          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-          <div class="stream-meta">
-            <span>{{ .Date.Format "January 2, 2006" }}</span>
-            {{ with .Params.status }}<span>Status: {{ . }}</span>{{ end }}
+    {{ $lead := index $pages 0 }}
+    {{ $rest := after 1 $pages }}
+    <section class="project-layout">
+      <article class="project-card project-card-featured">
+        <div class="project-card-copy">
+          <p class="eyebrow">Featured build</p>
+          <div class="project-card-header">
+            <h2><a href="{{ $lead.RelPermalink }}">{{ $lead.Title }}</a></h2>
+            {{ with $lead.Params.status }}
+              <span class="project-status project-status-featured">{{ . }}</span>
+            {{ end }}
           </div>
-          {{ with .Params.description }}
+          <div class="stream-meta project-meta">
+            <span>{{ $lead.Date.Format "January 2, 2006" }}</span>
+            {{ with $lead.Params.stack }}<span>{{ len . }} tools in stack</span>{{ end }}
+          </div>
+          {{ with $lead.Params.description }}
             <p class="project-summary">{{ . }}</p>
-          {{ else with .Summary }}
+          {{ else with $lead.Summary }}
             <div class="project-summary">{{ . }}</div>
           {{ end }}
-          {{ partial "meta-tags.html" .Params.tags }}
+        </div>
+        <div class="project-card-footer">
+          {{ partial "meta-tags.html" $lead.Params.tags }}
           <div class="project-links">
-            <a class="stream-link" href="{{ .RelPermalink }}">View project</a>
+            <a class="stream-link" href="{{ $lead.RelPermalink }}">View project</a>
+            {{ with $lead.Params.github }}
+              <a class="card-link project-source-link" href="{{ . }}">Source</a>
+            {{ end }}
           </div>
-        </article>
+        </div>
+      </article>
+
+      {{ if gt (len $rest) 0 }}
+        <div class="project-grid project-grid-secondary">
+          {{ range $rest }}
+            <article class="project-card project-card-secondary">
+              <div class="project-card-copy">
+                <p class="eyebrow">Project</p>
+                <div class="project-card-header">
+                  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                  {{ with .Params.status }}
+                    <span class="project-status">{{ . }}</span>
+                  {{ end }}
+                </div>
+                <div class="stream-meta project-meta">
+                  <span>{{ .Date.Format "January 2, 2006" }}</span>
+                </div>
+                {{ with .Params.description }}
+                  <p class="project-summary">{{ . }}</p>
+                {{ else with .Summary }}
+                  <div class="project-summary">{{ . }}</div>
+                {{ end }}
+              </div>
+              <div class="project-card-footer">
+                {{ partial "meta-tags.html" .Params.tags }}
+                <div class="project-links">
+                  <a class="stream-link" href="{{ .RelPermalink }}">View project</a>
+                  {{ with .Params.github }}
+                    <a class="card-link project-source-link" href="{{ . }}">Source</a>
+                  {{ end }}
+                </div>
+              </div>
+            </article>
+          {{ end }}
+        </div>
       {{ end }}
     </section>
   {{ else }}

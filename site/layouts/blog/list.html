@@ -9,27 +9,54 @@
     "note" "Long-form lane") }}
 
   {{ if gt (len $pages) 0 }}
-    <section class="stream-list">
-      {{ range $pages }}
-        <article class="stream-item">
-          <div>
-            <p class="eyebrow">Blog post</p>
-            <h2 class="stream-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-            <div class="stream-meta">
-              <span>{{ .Date.Format "January 2, 2006" }}</span>
-              {{ with .Params.series }}<span>Series: {{ . }}</span>{{ end }}
-            </div>
-            {{ with .Params.description }}
-              <p class="stream-excerpt">{{ . }}</p>
-            {{ else with .Summary }}
-              <div class="stream-excerpt">{{ . }}</div>
-            {{ end }}
-            {{ partial "meta-tags.html" .Params.tags }}
+    {{ $lead := index $pages 0 }}
+    {{ $rest := after 1 $pages }}
+    <section class="blog-layout">
+      <article class="stream-item stream-item-featured">
+        <div class="stream-copy">
+          <p class="eyebrow">Lead story</p>
+          <h2 class="stream-title"><a href="{{ $lead.RelPermalink }}">{{ $lead.Title }}</a></h2>
+          <div class="stream-meta">
+            <span>{{ $lead.Date.Format "January 2, 2006" }}</span>
+            {{ with $lead.Params.series }}<span>Series: {{ . }}</span>{{ end }}
+            {{ with $lead.Params.tags }}<span>{{ len . }} tags</span>{{ end }}
           </div>
-          <div class="stream-actions">
-            <a class="stream-link" href="{{ .RelPermalink }}">Read post</a>
-          </div>
-        </article>
+          {{ with $lead.Params.description }}
+            <p class="stream-excerpt">{{ . }}</p>
+          {{ else with $lead.Summary }}
+            <div class="stream-excerpt">{{ . }}</div>
+          {{ end }}
+        </div>
+        <div class="stream-actions stream-actions-featured">
+          {{ partial "meta-tags.html" $lead.Params.tags }}
+          <a class="stream-link" href="{{ $lead.RelPermalink }}">Read post</a>
+        </div>
+      </article>
+
+      {{ if gt (len $rest) 0 }}
+        <div class="stream-list stream-list-secondary">
+          {{ range $rest }}
+            <article class="stream-item stream-item-secondary">
+              <div class="stream-copy">
+                <p class="eyebrow">Blog post</p>
+                <h2 class="stream-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                <div class="stream-meta">
+                  <span>{{ .Date.Format "January 2, 2006" }}</span>
+                  {{ with .Params.series }}<span>Series: {{ . }}</span>{{ end }}
+                </div>
+                {{ with .Params.description }}
+                  <p class="stream-excerpt">{{ . }}</p>
+                {{ else with .Summary }}
+                  <div class="stream-excerpt">{{ . }}</div>
+                {{ end }}
+                {{ partial "meta-tags.html" .Params.tags }}
+              </div>
+              <div class="stream-actions">
+                <a class="stream-link" href="{{ .RelPermalink }}">Read post</a>
+              </div>
+            </article>
+          {{ end }}
+        </div>
       {{ end }}
     </section>
   {{ else }}

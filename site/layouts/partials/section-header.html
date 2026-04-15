@@ -6,12 +6,14 @@
 {{- $note := .note | default "" -}}
 <section class="surface section-header">
   <div class="section-header-grid">
-    <div>
-      <p class="eyebrow">{{ $eyebrow }}</p>
-      <h1 class="section-heading">{{ $title }}</h1>
-      {{ with $description }}
-        <p class="section-summary">{{ . }}</p>
-      {{ end }}
+    <div class="section-header-copy">
+      <p class="eyebrow section-header-eyebrow">{{ $eyebrow }}</p>
+      <div class="section-header-body">
+        <h1 class="section-heading">{{ $title }}</h1>
+        {{ with $description }}
+          <p class="section-summary">{{ . }}</p>
+        {{ end }}
+      </div>
     </div>
     <div class="section-rail">
       <div class="rail-stat">
