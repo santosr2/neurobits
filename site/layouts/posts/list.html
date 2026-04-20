@@ -1,0 +1,39 @@
+{{ define "main" }}
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="page-desc">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="post-filters" role="group" aria-label="Filter posts">
+    <button class="filter-btn active" data-filter="all" type="button">All</button>
+    <button class="filter-btn" data-filter="blog" type="button">Blog</button>
+    <button class="filter-btn" data-filter="note" type="button">Notes</button>
+  </div>
+
+  {{ $posts := .RegularPages.ByDate.Reverse }}
+  {{ if gt (len $posts) 0 }}
+    {{ range $posts.GroupByDate "2006" }}
+      <section class="year-group">
+        <h2 class="year-heading">{{ .Key }}</h2>
+        <ul class="post-list">
+          {{ range .Pages }}
+            {{ $postType := .Params.postType | default "note" }}
+            <li class="post-item" data-type="{{ $postType }}">
+              {{ if .Params.highlight }}<span class="post-star">*</span>{{ end }}
+              <span class="post-title-wrap">
+                <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                <span class="badge badge-type post-type">{{ $postType }}</span>
+              </span>
+              <span class="post-meta">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2" }}</time>
+                · {{ .ReadingTime }} min
+              </span>
+            </li>
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
+  {{ else }}
+    <p class="empty-state">No posts yet.</p>
+  {{ end }}
+{{ end }}

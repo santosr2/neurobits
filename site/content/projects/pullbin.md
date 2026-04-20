@@ -13,6 +13,7 @@ stack:
   - Python
   - BeautifulSoup
   - Requests
+weight: 20
 draft: false
 ---
 

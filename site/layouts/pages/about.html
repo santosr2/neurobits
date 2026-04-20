@@ -1,109 +1,58 @@
 {{ define "main" }}
-  <article class="about-shell">
-    <section class="surface about-hero">
-      <div class="about-hero-copy">
-        <p class="eyebrow">Profile dossier</p>
-        <h1 class="page-title about-title">{{ .Title }}</h1>
-        {{ with .Params.role }}
-          <p class="about-subtitle">{{ . }}</p>
-        {{ end }}
-        {{ with .Params.description }}
-          <p class="page-description about-description">{{ . }}</p>
-        {{ end }}
-        <div class="about-callouts">
-          {{ range .Params.focus }}
-            <span class="meta-chip meta-chip-strong">{{ . }}</span>
-          {{ end }}
-        </div>
-      </div>
+  <article class="about">
+    <header class="about-header">
+      {{ with .Params.role }}
+        <p class="about-role">{{ . }}</p>
+      {{ end }}
+      <h1 class="about-title">{{ .Title }}</h1>
+      {{ with .Params.description }}
+        <p class="about-intro">{{ . }}</p>
+      {{ end }}
+    </header>
 
-      <aside class="terminal-panel about-terminal" aria-label="Profile snapshot">
-        <div class="terminal-header">
-          <div class="terminal-lights" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-          <span>profile.sh</span>
-        </div>
-        <div class="terminal-copy">
-          {{ range .Params.terminal }}
-            <div class="terminal-line"><span class="terminal-prompt">></span><span>{{ . }}</span></div>
-          {{ end }}
-        </div>
-      </aside>
-    </section>
-
-    <section class="about-grid">
-      <section class="surface about-story">
-        <div class="about-section-heading">
-          <p class="eyebrow">Field notes</p>
-          <h2>What I do</h2>
-        </div>
-        <div class="prose about-prose">
+    {{ if .Content }}
+      <section class="about-section">
+        <div class="prose">
           {{ .Content }}
         </div>
       </section>
-
-      <aside class="about-sidebar">
-        {{ with .Params.links }}
-          <section class="surface sidebar-panel about-links">
-            <h2>Find me</h2>
-            <div class="about-link-list">
-              {{ range . }}
-                <a class="about-link" href="{{ .url }}">
-                  <span class="about-link-label">{{ .label }}</span>
-                  <span class="about-link-value">{{ .value }}</span>
-                </a>
-              {{ end }}
-            </div>
-          </section>
-        {{ end }}
-
-        {{ with .Params.principles }}
-          <section class="surface sidebar-panel about-principles">
-            <h2>Operating principles</h2>
-            <ul class="about-principle-list">
-              {{ range . }}
-                <li>{{ . }}</li>
-              {{ end }}
-            </ul>
-          </section>
-        {{ end }}
-      </aside>
-    </section>
+    {{ end }}
 
     {{ with .Params.capabilities }}
-      <section class="surface about-capabilities">
-        <div class="about-section-heading">
-          <p class="eyebrow">Capability map</p>
-          <h2>What I mess with</h2>
-        </div>
-        <div class="about-capability-grid">
+      <section class="about-section">
+        <h2>Stack</h2>
+        <div class="about-grid">
           {{ range . }}
-            <section class="about-capability-card">
+            <div class="about-card">
               <h3>{{ .label }}</h3>
-              <div class="about-chip-list">
+              <div class="about-card-items">
                 {{ range .items }}
-                  <span class="meta-chip">{{ . }}</span>
+                  <span class="badge">{{ . }}</span>
                 {{ end }}
               </div>
-            </section>
+            </div>
           {{ end }}
         </div>
       </section>
     {{ end }}
 
-    {{ with .Params.open_source }}
-      <section class="surface about-open-source">
-        <div class="about-section-heading">
-          <p class="eyebrow">Open source</p>
-          <h2>Things I build or contribute to</h2>
-        </div>
-        <div class="about-open-source-grid">
+    {{ with .Params.principles }}
+      <section class="about-section">
+        <h2>Principles</h2>
+        <ul class="about-principles">
           {{ range . }}
-            <article class="about-open-source-card">
-              <h3><a href="{{ .url }}">{{ .name }}</a></h3>
-              <p>{{ .summary }}</p>
-            </article>
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
+
+    {{ with .Params.links }}
+      <section class="about-section">
+        <h2>Connect</h2>
+        <div class="about-links">
+          {{ range . }}
+            <a class="about-link" href="{{ .url }}">{{ .label }}</a>
           {{ end }}
         </div>
       </section>

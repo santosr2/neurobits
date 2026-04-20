@@ -8,10 +8,6 @@ focus:
   - dev tools and CLIs
   - automation without theater
   - data platforms that behave
-terminal:
-  - "whoami -> santosr2"
-  - "focus -> infra, data, automation, tools"
-  - "motto -> make the right thing the easy thing"
 capabilities:
   - label: "Languages"
     items:
@@ -45,28 +41,6 @@ capabilities:
       - fish
       - terminals
       - clean automation
-open_source:
-  - name: "TerraTidy"
-    url: "https://github.com/santosr2/terratidy"
-    summary: "Terraform and Terragrunt linting, formatting, and repo hygiene."
-  - name: "Airflow Helm Chart"
-    url: "https://github.com/airflow-helm/charts"
-    summary: "Community chart work for running Airflow cleanly on Kubernetes."
-  - name: "terraform-provider-uptimerobot"
-    url: "https://github.com/santosr2/terraform-provider-uptimerobot"
-    summary: "Terraform provider work for keeping monitoring config in code."
-  - name: "rexos"
-    url: "https://github.com/santosr2/rexos"
-    summary: "A retro game OS experiment in Rust."
-  - name: "luma"
-    url: "https://github.com/santosr2/luma"
-    summary: "Lua-powered templating for when a lighter tool fits better."
-  - name: "sift"
-    url: "https://github.com/santosr2/sift"
-    summary: "Log querying and correlation experiments."
-  - name: "zfetch"
-    url: "https://github.com/santosr2/zfetch"
-    summary: "A neofetch-like tool built in Zig."
 principles:
   - "Understand the problem first."
   - "Build the simplest thing that works."
@@ -81,7 +55,7 @@ links:
     url: "https://x.com/santosr_2"
   - label: "LinkedIn"
     value: "corporate mode"
-    url: "https://www.linkedin.com/in/santosr2/"
+    url: "https://www.linkedin.com/in/rubens--santos/"
 draft: false
 ---
 

@@ -10,7 +10,11 @@ __pycache__
 .ruff_cache
 .venv
 
+# Node
+node_modules
+
 # AI
 .specs
 .plans
 .history
+.claude

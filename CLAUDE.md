@@ -34,12 +34,12 @@ Requires Hugo extended v0.160.0+ (check with `hugo version`).
 ```bash
 uv sync --extra dev                # Install project + dev dependencies
 
-uv run neurobits new blog -t "Title"      # Create blog post, opens in $EDITOR
-uv run neurobits new note -t "Title"      # Create note
-uv run neurobits new project -t "Title"   # Create project page
-uv run neurobits preview                  # Start Hugo dev server
-uv run neurobits build                    # Production build
-uv run neurobits doctor                   # Check dependencies and config
+uv run neurobits new post -t "Title"              # Create note (default)
+uv run neurobits new post -t "Title" --type blog  # Create blog post
+uv run neurobits new project -t "Title"           # Create project page
+uv run neurobits preview                          # Start Hugo dev server
+uv run neurobits build                            # Production build
+uv run neurobits doctor                           # Check dependencies and config
 
 ```
 
@@ -57,18 +57,20 @@ cd tools && uv run pytest tests/test_cli.py::test_doctor_all_ok  # Single test
 ### Hugo Site (`site/`)
 
 Content types and their URL patterns:
-- `content/blog/*.md` → `/blog/:year/:month/:slug/`
-- `content/notes/*.md` → `/notes/:slug/`
+
+- `content/posts/*.md` → `/posts/:slug/` (unified blog + notes, uses `postType` frontmatter)
 - `content/projects/*.md` → `/projects/:slug/`
 - `content/pages/*.md` → `/:slug/`
 
 Layout structure:
+
 - `layouts/_default/baseof.html` - Base template with head, body wrapper
 - `layouts/partials/` - Header, footer, meta tags
-- `layouts/{blog,notes,projects}/` - Section-specific list and single templates
-- `archetypes/` - Templates for `hugo new` (blog.md, notes.md, projects.md)
+- `layouts/{posts,projects}/` - Section-specific list and single templates
+- `archetypes/` - Templates for `hugo new` (posts.md, projects.md)
 
 Asset pipeline:
+
 - `assets/css/main.css` - All styles, uses CSS custom properties for theming
 - `assets/js/main.js` - Minimal JS (nav toggle, keyboard detection)
 - Assets are fingerprinted and minified by Hugo
@@ -87,12 +89,14 @@ The CLI is a thin wrapper; it delegates to Hugo for actual site operations.
 
 ## Content Frontmatter
 
-Blog posts use date-prefixed filenames (`2026-04-title.md`). Standard frontmatter:
+Posts use date-prefixed filenames (`2026-04-title.md`). Standard frontmatter:
 
 ```yaml
 title: "Post Title"
 date: 2026-04-13
 draft: true
+postType: note  # or "blog"
 tags: ["tag1", "tag2"]
 description: "Optional summary"
+highlight: false  # true shows star on list pages
 ```

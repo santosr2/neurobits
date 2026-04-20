@@ -1,41 +1,32 @@
 {{ define "main" }}
-  <article class="project-shell">
-    <div class="project-main">
+  <article class="project container-narrow">
+    <header class="project-header">
       <p class="eyebrow">Project</p>
-      <h1 class="project-title">{{ .Title }}</h1>
-      <div class="single-meta">
-        {{ if .Date }}<span>{{ .Date.Format "January 2, 2006" }}</span>{{ end }}
-        {{ with .Params.status }}<span>Status: {{ . }}</span>{{ end }}
+      <h1>{{ .Title }}</h1>
+      <div class="project-meta">
+        {{ if .Date }}<span>{{ .Date.Format "Jan 2006" }}</span>{{ end }}
+        {{ with .Params.status }}<span class="project-status">{{ . }}</span>{{ end }}
       </div>
       {{ with .Params.description }}
-        <p class="lede">{{ . }}</p>
+        <p class="project-lead">{{ . }}</p>
       {{ else with .Params.summary }}
-        <p class="lede">{{ . }}</p>
+        <p class="project-lead">{{ . }}</p>
       {{ end }}
-      {{ partial "meta-tags.html" .Params.tags }}
-      <div class="single-actions">
-        {{ with .Params.github }}<a class="button" href="{{ . }}" target="_blank" rel="noopener noreferrer">Source</a>{{ end }}
-        {{ with .Params.demo }}<a class="ghost-button" href="{{ . }}" target="_blank" rel="noopener noreferrer">Demo</a>{{ end }}
-      </div>
-      <div class="prose">
-        {{ .Content }}
-      </div>
-    </div>
-    <aside class="project-sidebar">
-      <section class="sidebar-panel">
-        <h2>Project lane</h2>
-        <p>Project pages keep links, stack details, and proof points visible without turning into marketing copy.</p>
-      </section>
       {{ with .Params.stack }}
-        <section class="sidebar-panel">
-          <h2>Stack</h2>
-          <div class="stack-list">
-            {{ range . }}
-              <span class="meta-chip meta-chip-strong">{{ . }}</span>
-            {{ end }}
-          </div>
-        </section>
+        <div class="project-stack">
+          {{ range . }}
+            <span class="badge">{{ . }}</span>
+          {{ end }}
+        </div>
       {{ end }}
-    </aside>
+      <div class="project-actions">
+        {{ with .Params.github }}<a class="btn btn-primary" href="{{ . }}" target="_blank" rel="noopener noreferrer">View source</a>{{ end }}
+        {{ with .Params.demo }}<a class="btn btn-ghost" href="{{ . }}" target="_blank" rel="noopener noreferrer">Live demo</a>{{ end }}
+      </div>
+    </header>
+
+    <div class="prose project-content">
+      {{ .Content }}
+    </div>
   </article>
 {{ end }}

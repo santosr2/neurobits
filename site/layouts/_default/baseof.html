@@ -5,25 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ block "title" . }}{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ with .Params.description }}{{ . }}{{ else with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-    <meta name="theme-color" content="#07111f">
+    <meta name="theme-color" content="{{ .Site.Params.themeColor | default "#FAFAFA" }}" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="{{ .Site.Params.themeColorDark | default "#0F0F14" }}" media="(prefers-color-scheme: dark)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <script>
+      // Prevent flash: set theme before render
+      (function() {
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch(e) {}
+        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
     {{ with resources.Get "css/main.css" }}
       {{ $style := . | minify | fingerprint }}
       <link rel="stylesheet" href="{{ $style.RelPermalink }}">
     {{ end }}
     {{ block "head" . }}{{ end }}
   </head>
-  <body class="kind-{{ .Kind }}{{ with .Section }} section-{{ . }}{{ else }} section-home{{ end }}">
+  <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="site-shell">
-      {{ partial "header.html" . }}
-      <main id="main-content" class="container page-content">
-        {{ block "main" . }}{{ end }}
-      </main>
-      {{ partial "footer.html" . }}
-    </div>
+    {{ partial "header.html" . }}
+    <main id="main-content" class="container">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "footer.html" . }}
     {{ with resources.Get "js/main.js" }}
       {{ $script := . | minify | fingerprint }}
       <script defer src="{{ $script.RelPermalink }}"></script>

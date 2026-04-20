@@ -36,19 +36,25 @@ def main():
 
 
 @main.command()
-@click.argument("section", type=click.Choice(["blog", "note", "project"]))
+@click.argument("section", type=click.Choice(["post", "project"]))
 @click.option("--title", "-t", required=True, help="Title for the new content")
+@click.option(
+    "--type",
+    "post_type",
+    type=click.Choice(["blog", "note"]),
+    default="note",
+    help="Post type: blog or note (default: note)",
+)
 @click.option(
     "--draft/--no-draft", default=True, help="Create as draft (default: true)"
 )
-def new(section: str, title: str, draft: bool):
-    """Create new content (blog, note, or project)."""
+def new(section: str, title: str, post_type: str, draft: bool):
+    """Create new content (post or project)."""
     site_path = get_site_path()
 
     # Map section to content path
     section_map = {
-        "blog": "blog",
-        "note": "notes",
+        "post": "posts",
         "project": "projects",
     }
     content_section = section_map[section]
@@ -71,10 +77,15 @@ def new(section: str, title: str, draft: bool):
     full_path = site_path / "content" / content_path
     click.echo(f"Created: {full_path}")
 
-    # If not draft, update the frontmatter
-    if not draft and full_path.exists():
+    # Update frontmatter for posts
+    if full_path.exists():
         content = full_path.read_text()
-        content = content.replace("draft: true", "draft: false", 1)
+        # Set postType for posts
+        if section == "post":
+            content = content.replace("postType: note", f"postType: {post_type}", 1)
+        # Update draft status if needed
+        if not draft:
+            content = content.replace("draft: true", "draft: false", 1)
         full_path.write_text(content)
 
     # Open in editor

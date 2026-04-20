@@ -1,34 +1,73 @@
 {{ define "title" }}{{ .Site.Title }}{{ end }}
 
 {{ define "main" }}
-  <section class="hero-shell">
-    <div class="hero-grid">
-      <div>
-        <p class="eyebrow">Personal Website</p>
-        <h1 class="hero-title glitch" data-text="NEUROBITS"><span class="title-gradient">NEUROBITS</span></h1>
-        <p class="hero-subtitle">Notes, posts, and projects.</p>
-        <p class="hero-copy">
-          My personal website, where I keep notes, publish blog posts,
-          and collect the projects I want to remember and share.
-        </p>
-        <div class="hero-actions">
-          <a class="button" href="{{ "/notes/" | relURL }}">Read the notes</a>
-          <a class="ghost-button" href="{{ "/blog/" | relURL }}">Browse the blog</a>
-        </div>
-      </div>
-      <aside class="terminal-panel" aria-label="Site status">
-        <div class="terminal-header">
-          <div class="terminal-lights" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-          <span>what's here</span>
-        </div>
-        <div class="terminal-copy">
-          <div class="terminal-line"><span class="terminal-prompt">></span><span><strong>notes</strong> for quick ideas, links, and references.</span></div>
-          <div class="terminal-line"><span class="terminal-prompt">></span><span><strong>blog</strong> for longer posts and write-ups.</span></div>
-          <div class="terminal-line"><span class="terminal-prompt">></span><span><strong>projects</strong> for the things I build and keep visible.</span></div>
-        </div>
-      </aside>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <img src="{{ "images/avatar.jpeg" | relURL }}" alt="Rubens Santos" class="hero-avatar">
+      <h1 class="hero-title glitch" data-text="santosr2">santosr2</h1>
+      <p class="hero-tagline">Platform · Automation · Low-Level</p>
+      <nav class="social-links" aria-label="Social links">
+        <a href="https://github.com/santosr2" aria-label="GitHub">GitHub</a>
+        <a href="https://www.linkedin.com/in/rubens--santos/" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://x.com/santosr_2" aria-label="X (Twitter)">X</a>
+      </nav>
     </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="home-section">
+    <header class="section-header">
+      <h2>Projects</h2>
+      <a href="{{ "projects/" | relURL }}">see all →</a>
+    </header>
+    <div class="grid">
+      {{ $projects := where .Site.RegularPages "Section" "projects" }}
+      {{ $projects = $projects.ByWeight | first 4 }}
+      {{ range $projects }}
+        <article class="card project-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            {{ with .Params.status }}
+              <span class="status-badge status-{{ . }}">{{ . }}</span>
+            {{ end }}
+          </div>
+          <p class="card-desc">{{ .Params.summary | default .Params.description }}</p>
+          <div class="card-meta">
+            {{ range .Params.stack }}
+              <span class="badge">{{ . }}</span>
+            {{ end }}
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+
+  <!-- Recent Posts -->
+  <section class="home-section">
+    <header class="section-header">
+      <h2>Recent Posts</h2>
+      <a href="{{ "posts/" | relURL }}">all posts →</a>
+    </header>
+    <ul class="post-list">
+      {{ $posts := where .Site.RegularPages "Section" "posts" }}
+      {{ $posts = $posts.ByDate.Reverse | first 5 }}
+      {{ range $posts }}
+        {{ $postType := .Params.postType | default "note" }}
+        <li class="post-item">
+          {{ if .Params.highlight }}<span class="post-star">*</span>{{ end }}
+          <span class="post-title-wrap">
+            <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <span class="badge badge-type post-type">{{ $postType }}</span>
+          </span>
+          <span class="post-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2" }}</time>
+            · {{ .ReadingTime }} min
+          </span>
+        </li>
+      {{ end }}
+    </ul>
   </section>
 {{ end }}

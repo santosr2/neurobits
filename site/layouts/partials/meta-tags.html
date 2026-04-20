@@ -1,7 +1,7 @@
 {{ with . }}
-  <ul class="tag-list">
+  <div class="card-tags">
     {{ range . }}
-      <li class="tag">{{ . }}</li>
+      <span class="badge">{{ . }}</span>
     {{ end }}
-  </ul>
+  </div>
 {{ end }}

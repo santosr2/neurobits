@@ -14,6 +14,7 @@ stack:
   - Python
   - Hugo
   - Click
+weight: 10
 draft: false
 ---
 

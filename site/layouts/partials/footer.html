@@ -1,8 +1,9 @@
 <footer class="site-footer">
-  <div class="container footer-shell">
-    <div class="footer-row">
-      <p class="footer-note"><strong>Neurobits</strong> is my personal website for notes, blog posts, and projects.</p>
-      <p class="footer-note">&copy; 2018-{{ now.Format "2006" }} {{ .Site.Title }}</p>
+  <div class="container footer-content">
+    <p class="footer-note">&copy; 2018–{{ now.Format "2006" }} {{ .Site.Title }}</p>
+    <div class="footer-links">
+      <a href="/posts/index.xml">RSS</a>
+      <a href="https://github.com/santosr2/neurobits">Source</a>
     </div>
   </div>
 </footer>

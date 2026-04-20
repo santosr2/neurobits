@@ -4,10 +4,10 @@ date: {{ .Date }}
 draft: true
 summary: ""
 description: ""
-tags: []
+status: "active"
 github: ""
-demo: ""
-status: ""
+stack: []
+tags: []
+weight: 99
 ---
 
-# {{ replace .Name "-" " " | title }}
