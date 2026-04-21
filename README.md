@@ -1,6 +1,6 @@
 # Neurobits
 
-[![CI](https://github.com/santosr2/neurobits/actions/workflows/ci.yml/badge.svg)](https://github.com/santosr2/neurobits/actions/workflows/ci.yml)
+[![CI](https://github.com/santosr2/neurobits/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/santosr2/neurobits/actions/workflows/ci-cd.yml)
 ![Hugo](https://img.shields.io/badge/Hugo-0.160+-ff4088?logo=hugo)
 ![Python](https://img.shields.io/badge/Python-3.12+-3776ab?logo=python&logoColor=white)
 
