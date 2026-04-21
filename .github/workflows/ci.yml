@@ -90,6 +90,7 @@ jobs:
           lychee \
             --offline \
             --no-progress \
+            --root-dir ${{ github.workspace }}/site/public \
             --exclude-path 'site/public/index.xml' \
             --exclude-path 'site/public/sitemap.xml' \
             'site/public/**/*.html'
