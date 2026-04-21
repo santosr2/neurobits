@@ -1,50 +1,30 @@
 # Neurobits
 
-Isolated replacement workspace for the Neurobits refactor.
+[![CI](https://github.com/santosr2/neurobits/actions/workflows/ci.yml/badge.svg)](https://github.com/santosr2/neurobits/actions/workflows/ci.yml)
+![Hugo](https://img.shields.io/badge/Hugo-0.160+-ff4088?logo=hugo)
+![Python](https://img.shields.io/badge/Python-3.12+-3776ab?logo=python&logoColor=white)
 
-- `site/` holds the new Hugo implementation.
-- `tools/` is reserved for the thin Python authoring wrapper and migration utilities.
-- Legacy root files stay reference-only while work moves forward here.
+Personal site built with Hugo and a thin Python CLI for content authoring.
 
 ## Setup
 
-Install the declared runtimes from the repo root:
-
 ```bash
-mise install
+mise install                 # Install Hugo and uv
+cd tools && uv sync          # Install CLI
 ```
 
-If your shell has not been activated through `mise` yet, run commands with
-`mise exec -- <command>` or enable the shell hook in your dotfiles.
-
-Install the Python wrapper environment:
+## Usage
 
 ```bash
-cd tools
-uv sync --extra dev
+neurobits new post -t "Title"              # Create a note
+neurobits new post -t "Title" --type blog  # Create a blog post
+neurobits preview                          # Start dev server
+neurobits build                            # Production build
 ```
 
-## Local Guardrails
-
-Install the repo hooks once:
+## Development
 
 ```bash
-pre-commit install
-```
-
-Run them across the repo before pushing larger changes:
-
-```bash
-pre-commit run --all-files
-```
-
-The hook set stays intentionally small:
-- repo hygiene checks for whitespace, EOFs, YAML/TOML parsing, and merge markers
-- `ruff` linting and formatting scoped to `tools/`
-
-Run the wrapper test suite with:
-
-```bash
-cd tools
-uv run pytest -v
+pre-commit install           # Install hooks
+cd tools && uv run pytest    # Run tests
 ```
