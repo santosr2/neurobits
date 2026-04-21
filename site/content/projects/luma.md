@@ -3,7 +3,7 @@ title: "Luma"
 date: 2025-12-04
 summary: "A language-agnostic, Lua-powered templating engine."
 description: "Clean, directive-based templating that works anywhere. Lua core with bindings for Go, Python, Node.js, and WASM."
-status: "active"
+status: "in development"
 tags:
   - templating
   - lua

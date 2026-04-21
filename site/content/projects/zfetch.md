@@ -3,7 +3,7 @@ title: "zfetch"
 date: 2025-04-25
 summary: "Neofetch-like system info tool written in Zig."
 description: "Fast, minimal system information display. Built in Zig for low overhead and easy cross-compilation."
-status: "stable"
+status: "in development"
 tags:
   - cli
   - zig

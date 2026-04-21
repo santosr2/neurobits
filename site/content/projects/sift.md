@@ -3,7 +3,7 @@ title: "Sift"
 date: 2025-12-05
 summary: "A unified log querying and correlation engine for the command line."
 description: "Query logs across multiple sources with a single syntax. Correlates events, filters noise, and outputs structured data."
-status: "active"
+status: "in development"
 tags:
   - cli
   - logging
